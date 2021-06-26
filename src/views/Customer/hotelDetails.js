@@ -64,19 +64,9 @@ const classes = useStyles;
 
 function hotelDetails() {
     return (
-        <div className={classes.root}>
-            <CssBaseline />
+       
 
-
-            <AppBar>
-
-            </AppBar>
-
-            <Navbar>
-
-            </Navbar>
-
-            <main className={classes.content}>
+          
 
                 <Grid container spacing={3}  >
 
@@ -85,9 +75,6 @@ function hotelDetails() {
 
                 </Grid>
 
-            </main>
-
-        </div>
     )
 }
 

@@ -1,54 +1,48 @@
 import React from "react";
 
 import * as MaterialIcons from "@material-ui/icons";
-import  UserDashboard  from "./dashboard";
+import  Home from "./home";
 
 import LoginScreen from '../Login/login';
 import App from '../../App';
-
-
+import Hotel from './hotels'
+import HotelDetails from './hotelDetails'
  const NavData = [
-  {
-    name: 'Tours',
-    path: "/dashboard",
-    icon: <MaterialIcons.Home />,
-    className: "nav-text",
-    component: <UserDashboard/>,
-  },
+ 
   {
     name: 'Restaurants',
-    path: "/admin/users",
+    path: "/customer/dashboard",
     icon: <MaterialIcons.Person />,
     className: "nav-text",
-  //  component: <AdminUsers />,
+    component: <Home/>,
   },
   {
     name: 'Hotels',
-    path: "/admin/trainers",
+    path: "/customer/hotels",
     icon: <MaterialIcons.WorkOutline />,
     className: "nav-text",
-  //  component: <AdminDashboard />,
+    component: <Hotel/>,
   },
   {
     name: 'Events',
-    path: "/admin/trainers",
+    path: "/customer/HotelDetails",
     icon: <MaterialIcons.WorkOutline />,
     className: "nav-text",
-  //  component: <AdminDashboard />,
+    component: <HotelDetails/>,
   },
   {
     name: 'Tours ',
-    path: "/admin/messages",
+    path: "/customer/dashboard",
     icon: <MaterialIcons.Message />,
     className: "nav-text",
-  //  component: <AdminDashboard />,
+    component: <Home/>,
   },
   {
     name: 'Bookings',
-    path: "/admin/messages",
+    path: "/customer/dashboard",
     icon: <MaterialIcons.Message />,
     className: "nav-text",
-  //  component: <AdminDashboard />,
+    component: <Home/>,
   },
   {
     name: "Logout",

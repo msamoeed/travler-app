@@ -14,6 +14,7 @@ import NavData from "./drawerData.js";
 
 import { Link } from "react-router-dom";
 
+import logo from '../../assets/img/reactlogo.png'; // Tell webpack this JS file uses this image
 
 
 
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 
+    sideLogo:{
+        height: 150,
+        width: 180
+    },
 
 
     appBar: {
@@ -57,7 +62,7 @@ const drawerWidth = 240;
 const classes = useStyles;
 
 export default function DrawerSide(props) {
-    const { window } = props;
+    const { window } = 150;
     const container = window !== undefined ? () => window().document.body : undefined;
 
 
@@ -69,37 +74,18 @@ export default function DrawerSide(props) {
     };
     return (
 
-        <nav className={classes.drawer} aria-label="mailbox folders">
+        <nav className={useStyles().drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-            <Hidden smUp implementation="css">
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                >
-                    <drawer> </drawer>
-                </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-                <Drawer
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    variant="permanent"
-                    open
-                >
-                    <drawer> </drawer>
+           
+              
+           
+            <img src={logo} alt="Logo"  className={useStyles().sideLogo}/>
+            
+            
+               
+          
 
-                </Drawer>
-            </Hidden>
+               
 
             <div>
                 <div className={classes.toolbar} />
