@@ -26,14 +26,19 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
             flexShrink: 0,
+            
         },
     },
 
-    sideLogo:{
+    sideLogo: {
         height: 150,
         width: 180
     },
 
+    sideBarScheme : {
+        backgroundColor: 'pink',
+
+    },
 
     appBar: {
         [theme.breakpoints.up('sm')]: {
@@ -62,7 +67,7 @@ const drawerWidth = 240;
 const classes = useStyles;
 
 export default function DrawerSide(props) {
-    const { window } = 150;
+    const { window } = 180;
     const container = window !== undefined ? () => window().document.body : undefined;
 
 
@@ -76,22 +81,10 @@ export default function DrawerSide(props) {
 
         <nav className={useStyles().drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-           
-              
-           
-            <img src={logo} alt="Logo"  className={useStyles().sideLogo}/>
-            
-            
-               
-          
+            <img src={logo} alt="Logo" className={useStyles().sideLogo} />
 
-               
-
-            <div>
+            <div className= {useStyles().sideBarScheme}>
                 <div className={classes.toolbar} />
-
-
-
                 <Divider />
                 <List>
                     {NavData.map((text, index) => (

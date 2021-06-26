@@ -7,15 +7,10 @@ import LoginScreen from '../Login/login';
 import App from '../../App';
 import Hotel from './hotels'
 import HotelDetails from './hotelDetails'
+import Restaurants from './restaurants';
  const NavData = [
  
-  {
-    name: 'Restaurants',
-    path: "/customer/dashboard",
-    icon: <MaterialIcons.Person />,
-    className: "nav-text",
-    component: <Home/>,
-  },
+
   {
     name: 'Hotels',
     path: "/customer/hotels",
@@ -35,14 +30,21 @@ import HotelDetails from './hotelDetails'
     path: "/customer/dashboard",
     icon: <MaterialIcons.Message />,
     className: "nav-text",
-    component: <Home/>,
+    component: <HotelDetails/>,
+  },
+    {
+    name: 'Restaurants',
+    path: "/customer/restaurants",
+    icon: <MaterialIcons.Person />,
+    className: "nav-text",
+    component: <Restaurants/>,
   },
   {
     name: 'Bookings',
     path: "/customer/dashboard",
     icon: <MaterialIcons.Message />,
     className: "nav-text",
-    component: <Home/>,
+    component: <HotelDetails/>,
   },
   {
     name: "Logout",
