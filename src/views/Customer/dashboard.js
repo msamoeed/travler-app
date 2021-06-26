@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
-
+    
 
 
   appBar: {
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    flexGrow: 3,
+    padding: theme.spacing(6.5),
   },
 }));
 
@@ -71,30 +71,7 @@ function ResponsiveDrawer(props) {
 
 
 
-  // const drawer = (
-  //   <div>
-  //     <div className={classes.toolbar} />
-
-  //     <Divider />
-  //     <List>
-  //       {['Tours', 'Restaurants', 'Hotels', 'Events', 'Tours '].map((text, index) => (
-  //         <ListItem button key={text}>
-  //           <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-  //           <ListItemText primary={text} />
-  //         </ListItem>
-  //       ))}
-  //     </List>
-  //     <Divider />
-  //     <List>
-  //       {['Bookings', 'Trash', 'Logout'].map((text, index) => (
-  //         <ListItem button key={text}>
-  //           <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-  //           <ListItemText primary={text} />
-  //         </ListItem>
-  //       ))}
-  //     </List>
-  //   </div>
-  // );
+  
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -132,10 +109,10 @@ function ResponsiveDrawer(props) {
 
         </Toolbar>
       </AppBar>
-              <DrawerSide>
-                
-              </DrawerSide>
-      <main className={classes.content}>
+      <DrawerSide>
+
+      </DrawerSide>
+      <main className={useStyles().content}>
 
         <Grid container spacing={3}  >
 

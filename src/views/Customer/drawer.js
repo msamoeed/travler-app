@@ -110,7 +110,7 @@ export default function DrawerSide(props) {
                 <List>
                     {NavData.map((text, index) => (
                         <Link variant="button" className="nav-item-btn" to={text.path}>
-                            <ListItem button key={text.name} >
+                            <ListItem  >
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={text.name} />
                             </ListItem>
