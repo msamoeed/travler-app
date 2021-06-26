@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     sideBarScheme : {
-        backgroundColor: 'pink',
+       // backgroundColor: 'pink',
 
     },
 
@@ -88,7 +88,7 @@ export default function DrawerSide(props) {
                 <Divider />
                 <List>
                     {NavData.map((text, index) => (
-                        <Link variant="button" className="nav-item-btn" to={text.path}>
+                        <Link variant="button" style={{ textDecoration: 'none' }} to={text.path}>
                             <ListItem  >
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={text.name} />
