@@ -12,64 +12,64 @@ const drawerWidth = 240;
 function Restaurants(props) {
 
 
-  return (
-   
-      
+    return (
+
+
 
         <Grid container spacing={3}  >
 
-          <MediaCard ></MediaCard>
+            <MediaCard ></MediaCard>
 
-          <MediaCard ></MediaCard>
-          <MediaCard ></MediaCard>
-          <MediaCard ></MediaCard>
+            <MediaCard ></MediaCard>
+            <MediaCard ></MediaCard>
+            <MediaCard ></MediaCard>
 
-          <MediaCard ></MediaCard>
-          
+            <MediaCard ></MediaCard>
+
         </Grid>
 
-      
-    // </div>
-  );
+
+        // </div>
+    );
 
 
-  
+
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
+    root: {
+        display: 'flex',
     },
-  },
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+    },
 
 
 
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
+    appBar: {
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth,
+        },
     },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
     },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 3,
-    padding: theme.spacing(6.5),
-  },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    content: {
+        flexGrow: 3,
+        padding: theme.spacing(6.5),
+    },
 }));
 
 
