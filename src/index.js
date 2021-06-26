@@ -14,26 +14,30 @@ import Dashboard from './views/Customer/dashboard'
 import HotelManagerDash from './views/HotelManager/dashboard.js'
 import Form from './views/HotelManager/addHotelForm'
 import Hotel from './views/Customer/hotelDetails'
-
+import App from './App'
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={hist}>
-  <Switch>
+//   <Router history={hist}>
+//   <Switch>
     
-    <Route path="/login" component={Login} />
-    <Route path="/register" component={Register} /> 
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/Hoteldashboard" component={HotelManagerDash} />
-    <Route path="/Form" component={Form} />
-    <Route path="/Hoteldetails" component={Hotel} />
-
+//     <Route path="/login" component={Login} />
+//     <Route path="/register" component={Register} /> 
+//     <Route path="/dashboard" component={Dashboard} />
+//     <Route path="/Hoteldashboard" component={HotelManagerDash} />
+//     <Route path="/Form" component={Form} />
+//     <Route path="/Hoteldetails" component={Hotel} />
+//     <Route path="/" component = {Login} />
 
 
     
-  </Switch>
-</Router>,
+//   </Switch>
+// </Router>,
+<React.StrictMode>
+<App/>
+</React.StrictMode>,  
+
 document.getElementById("root")
 );
 
