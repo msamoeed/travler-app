@@ -12,7 +12,7 @@ import Register from './views/Signup/signup'
 import Dashboard from './views/Customer/restaurants'
 import HotelManagerDash from './views/HotelManager/dashboard.js'
 import Form from './views/HotelManager/addHotelForm'
-import Hotel from './views/Customer/hotelDetails'
+import Hotel from './views/Customer/hotelHome'
 import NavData from "./views/Customer/drawerData";
 import CustomerHome from './views/Customer/home';
 import LoginScreen from './views/Login/login';
@@ -35,18 +35,33 @@ const App = ({ match }) => {
     <Route path="/user/dashboard" component={Dashboard} />
     <Route path="/Hoteldashboard" component={HotelManagerDash} />
     <Route path="/Form" component={Form} />
-    <Route path="/Hoteldetails" component={Hotel} />
+    <Route path="/hotelHome" component={Hotel} />
    {/* <Route path="/customer" component = {()=><CustomerHome component= { <Restaurants/> } /> } /> */}
 
     
           {NavData.map((item, index) => {
-            return (
-              <Route
-                key={index}
-                path={item.path}
-                component={() => <CustomerHome component={item.component} />}
-              />
-            );
+
+            if (item.name =='Hotels' | item.name == 'Restaurants') {
+              console.log("HELLOR WORLDDD")
+              return (
+                <Route
+                  key={index}
+                  path={item.path}
+                  component={() => <CustomerHome component={item.component} appbar={item.appbar}  />}
+                />
+              );
+            }
+            else {
+              return (
+                <Route
+                  key={index}
+                  path={item.path}
+                  component={() => <CustomerHome component={item.component}   />}
+                />
+              );
+            }
+            
+            
           })}
 
 

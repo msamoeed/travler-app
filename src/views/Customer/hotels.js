@@ -30,7 +30,8 @@ function Hotels(props) {
 
   return (
    
-      
+      <div className={useStyles().content}>
+
 
         <Grid container spacing={3}  >
 
@@ -42,7 +43,7 @@ function Hotels(props) {
         </Grid>
 
       
-    // </div>
+    </div>
   );
 
 
@@ -80,8 +81,9 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   content: {
-    flexGrow: 3,
-    padding: theme.spacing(6.5),
+    
+    
+    paddingTop : 30
   },
 }));
 

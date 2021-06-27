@@ -14,7 +14,7 @@ function Restaurants(props) {
 
     return (
 
-
+      <div className={useStyles().content}> 
 
         <Grid container spacing={3}  >
 
@@ -29,7 +29,7 @@ function Restaurants(props) {
         </Grid>
 
 
-        // </div>
+        </div>
     );
 
 
@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 3,
-        padding: theme.spacing(6.5),
+        
+        paddingTop : 30
     },
 }));
 

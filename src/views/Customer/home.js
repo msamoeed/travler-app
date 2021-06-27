@@ -29,104 +29,73 @@ import DrawerSide from './drawer'
 const drawerWidth = 240;
 
 
-function CustomerHome({ match, component }) {
-  const [sidebar, setSidebar] = useState(true);
-  const showSidebar = () => setSidebar(!sidebar);
-  const classes = useStyles;
-  const container = window !== undefined ? () => window().document.body : undefined;
+function CustomerHome({  component, appbar }) {
+    const [sidebar, setSidebar] = useState(true);
+    const showSidebar = () => setSidebar(!sidebar);
+    const classes = useStyles;
+    const container = window !== undefined ? () => window().document.body : undefined;
 
 
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-};
+    const theme = useTheme();
+    const [mobileOpen, setMobileOpen] = React.useState(true);
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
 
-  console.log(component);
-  return (
-    <div className={useStyles().root}>
-        <AppBar position="fixed" className={useStyles().appBar}>
-        <Toolbar>
+    console.log(component);
 
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
+    return (
+        <div className={useStyles().root}>
+           
+           {appbar}
+            <DrawerSide>
+            </DrawerSide>
+            {component}
+            <main className={useStyles().content}>
+                
+            </main>
 
 
 
-          <div className={useStyles().search}>
-
-            <SearchIcon />
-
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-
-        </Toolbar>
-      </AppBar>
-      
-      
-      <DrawerSide>
-
-      </DrawerSide>
-
-      <main className={useStyles().content}>
-      {component} 
-      </main>
-             
-      
-              
-    </div>
-  );
+        </div>
+    );
 }
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     drawer: {
-      [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
     },
-  
-  
-  
+
+
+
     appBar: {
-      [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-      },
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth,
+        },
     },
     menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        display: 'none',
-      },
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
-      width: drawerWidth,
+        width: drawerWidth,
     },
     content: {
-      flexGrow: 3,
-      padding: theme.spacing(6.5),
+        flexGrow: 3,
+        padding: theme.spacing(6.5),
     },
-  }));
+}));
 
 export default CustomerHome;

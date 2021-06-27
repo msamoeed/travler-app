@@ -3,7 +3,7 @@
 
 import Toolbar from '@material-ui/core/Toolbar';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '../../components/AppBar/appbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React from 'react';
@@ -19,63 +19,365 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import MediaCard from '../../components/TourCard/cardTour';
 import Grid from '@material-ui/core/Grid';
 import Navbar from '../../components/NavBar/navbar'
+import Image from '../../assets/img/new_logo.png'
+import Paper from '@material-ui/core/Paper';
+import { Carousel } from '3d-react-carousal';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+
+import * as MaterialIcons from "@material-ui/icons";
+
+
+const hotel = [
+    {
+        name: "Sarena",
+        address: "F-5, Islamabad, Pakistan",
+        city: "Islamabad",
+        facilities: ["Bar", "Restaurant", "Pool"],
+        rooms: [{
+            "desciption": "Preimum Plux",
+            "number": "233",
+            "type": "Premium",
+            "beds": 2,
+            "price": 152,
+            "images": [
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg"
+            ]
+
+        }]
+    },
+    {
+        name: "Sarena",
+        address: "F-5, Islamabad, Pakistan",
+        city: "Islamabad",
+        facilities: ["Bar", "Restaurant", "Pool"],
+        rooms: [{
+            "desciption": "Preimum Plux",
+            "number": "233",
+            "type": "Premium",
+            "beds": 2,
+            "price": 152,
+            "images": [
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg"
+            ]
+
+        }]
+    },
+    {
+        name: "Sarena",
+        address: "F-5, Islamabad, Pakistan",
+        city: "Islamabad",
+        facilities: ["Bar", "Restaurant", "Pool"],
+        rooms: [{
+            "desciption": "Preimum Plux",
+            "number": "233",
+            "type": "Premium",
+            "beds": 2,
+            "price": 152,
+            "images": [
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg"
+            ]
+
+        }]
+    },
+    {
+        name: "Sarena",
+        address: "F-5, Islamabad, Pakistan",
+        city: "Islamabad",
+        facilities: ["Bar", "Restaurant", "Pool"],
+        rooms: [{
+            "desciption": "Preimum Plux",
+            "number": "233",
+            "type": "Premium",
+            "beds": 2,
+            "price": 152,
+            "images": [
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg"
+            ]
+
+        }]
+    },
+
+]
+
+
+const hotelR = {
+    name: "Sarena Hotel Islamabad",
+    address: "F-5, Islamabad, Pakistan",
+    city: "Islamabad",
+    facilities: ["Bar", "Restaurant", "Pool"],
+    rooms: [
+        {
+            description: "Economy Deal",
+            number: "233",
+            type: "Premium",
+            beds: 2,
+            price: 152,
+            images:
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+
+
+
+        },
+        {
+            description: "Preimum Plux",
+            number: "233",
+            type: "Premium",
+            beds: 2,
+            price: 152,
+            images:
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+
+
+
+        },
+        {
+            description: "Preimum Plux",
+            number: "232",
+            type: "Premium",
+            beds: 2,
+            price: 152,
+            images:
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+
+
+
+        },
+        {
+            description: "Preimum Plux",
+            number: "235",
+            type: "Premium",
+            beds: 2,
+            price: 152,
+            images:
+                "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+
+
+
+        }
+
+    ],
+    images: [
+        "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+        "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+        "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg",
+        "https://picsum.photos/800/300/?random",
+        "https://picsum.photos/800/300/?random",
+
+
+
+        "https://www.samaa.tv/wp-content/uploads/2016/12/besthotelsites-1-640x360.jpg"
+    ]
+
+
+};
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100vh',
-    },
-    image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
     },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+    media: {
+        height: 200,
+        width: 150,
+
     },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+
+        },
     },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
+
+    sideLogo: {
+        height: 150,
+        width: 180
+    },
+
+    sideBarScheme: {
+        // backgroundColor: 'pink',
+
+    },
+
+    featureDiv: {
+        borderRadius: 15,
+        height: 35,
+        width: 150,
+        backgroundColor: 'red',
+        color: 'white',
+        paddingLeft: 150,
+        marginTop: 15,
+        fontSize : 18,
+
+        textAlign: 'center',
+        paddingTop: 20,
+        marginTop: 25,
+        alignSelf: 'center',
+
+
+    },
+    row: {
+        paddingTop: 15,
+        flexDirection: 'row',
+
+    },
+
+    appBar: {
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth,
+        },
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    content: {
+        flexGrow:10,
+        padding: theme.spacing(6),
     },
 }));
 
-
-
+const drawerWidth = 240;
 const classes = useStyles;
 
+const mystyle = {
+    color: "black",
+    textAlign: 'center',
+    paddingTop: 15
+}
 
-function hotelDetails() {
+
+let slidesImage = [];
+
+hotelR.images.map((item, index) => {
+    slidesImage.push(
+        <img src={item} alt="1" />
+    )
+})
+
+
+
+const HotelDetails = () => {
+    const classes = useStyles();
     return (
-       
+        <div className={classes.content}>
+            <div  >
+                <h1 style={mystyle
 
-          
+                }
+                > {hotelR.name} </h1>
+            </div>
 
-                <Grid container spacing={3}  >
+            <div>
+                <Carousel slides={slidesImage} autoplay={true} interval={2000} />
 
-                    <h1>asdas</h1>
+            </div>
 
+            <div style={mystyle}>
+                {hotelR.address}
+            </div>
 
+            <h2 style={mystyle}>
+                Facilities
+            </h2>
+            <div style={mystyle}     >
+
+                <Grid style={mystyle} >
+                    {
+
+                        hotelR.facilities.map((text, index) => (
+                            <div className={classes.featureDiv}>
+                                {text}
+                            </div>
+                        ))}
                 </Grid>
+
+
+            </div>
+
+            <div >
+                <h2 style={mystyle} >
+                    Rooms
+                </h2>
+
+                {
+                    hotelR.rooms.map((text, index) => (
+                        <MediaCard images={text.images} description={text.description} price={text.price} detail={text.type} > </MediaCard>
+                    ))}
+
+            </div>
+
+
+
+            <Grid container spacing={3}  >
+            </Grid>
+        </div>
+
+
+
 
     )
 }
 
-export default hotelDetails
+
+function MediaCard({ images, detail, price, description }) {
+    const classes = useStyles();
+
+    return (
+        <Box m={3} pt={5}>
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={images}
+                        title={detail}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {price} USD
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {
+                                description
+                            }
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="primary">
+                        Book
+                    </Button>
+                    <Button size="small" color="primary">
+                        Add to Favorite
+                    </Button>
+                </CardActions>
+            </Card>
+        </Box>
+    );
+}
+
+export default HotelDetails

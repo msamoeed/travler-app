@@ -1,4 +1,3 @@
-import React from "react";
 
 import * as MaterialIcons from "@material-ui/icons";
 import  Home from "./home";
@@ -8,6 +7,22 @@ import App from '../../App';
 import Hotel from './hotels'
 import HotelDetails from './hotelDetails'
 import Restaurants from './restaurants';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import Bookings from './bookings'
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Tab from '@material-ui/core/Tab';
+
+import AppBars from './appbar'
+
+
+
+
+
+
+
+
  const NavData = [
  
 
@@ -17,6 +32,7 @@ import Restaurants from './restaurants';
     icon: <MaterialIcons.WorkOutline />,
     className: "nav-text",
     component: <Hotel/>,
+    appbar :  <AppBars/>,
   },
   {
     name: 'Events',
@@ -24,6 +40,9 @@ import Restaurants from './restaurants';
     icon: <MaterialIcons.WorkOutline />,
     className: "nav-text",
     component: <HotelDetails/>,
+    appbar :   <AppBars />
+
+
   },
   {
     name: 'Tours ',
@@ -38,13 +57,15 @@ import Restaurants from './restaurants';
     icon: <MaterialIcons.Person />,
     className: "nav-text",
     component: <Restaurants/>,
+    appbar :   <AppBars />
   },
   {
     name: 'Bookings',
-    path: "/customer/dashboard",
-    icon: <MaterialIcons.Message />,
+    path: "/customer/bookings",
+    icon: <MaterialIcons.HotelRounded />,
     className: "nav-text",
-    component: <HotelDetails/>,
+    component: <Bookings/>,
+   
   },
   {
     name: "Logout",
@@ -54,5 +75,7 @@ import Restaurants from './restaurants';
       component: <LoginScreen />,
   },
 ];
+
+
 
 export default NavData;
