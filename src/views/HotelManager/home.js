@@ -25,11 +25,11 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import MediaCard from '../../components/TourCard/cardTour';
 import Grid from '@material-ui/core/Grid';
-import DrawerSide from './drawer'
+import DrawerSide from '../HotelManager/drawer'
 const drawerWidth = 240;
 
 
-function CustomerHome({  component, appbar }) {
+function HotelManangerHome({  component, appbar }) {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
     const classes = useStyles;
@@ -46,14 +46,15 @@ function CustomerHome({  component, appbar }) {
 
     return (
         <div className={useStyles().root}>
-           
-           {appbar}
+            
             <DrawerSide>
             </DrawerSide>
+           {appbar}
+           
             
             {component}
-           
 
+           
 
 
         </div>
@@ -97,4 +98,4 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default CustomerHome;
+export default HotelManangerHome;

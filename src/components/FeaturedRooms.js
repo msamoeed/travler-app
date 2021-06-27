@@ -5,17 +5,7 @@ import Loading from './Loading';
 import Room from './Room';
 
 export default class FeaturedRooms extends Component {
-    featuredRooms = [
-        {
-            id :"asd"
-        },
-        {
-            id : "asd"
-        },
-        {
-            id : "asd"
-        }
-    ]
+  
     render() {
         const { loading, featuredRooms } = this.context;
         

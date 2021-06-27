@@ -13,7 +13,7 @@ import Bookings from './bookings'
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
-
+import Tours from './tours'
 import AppBars from './appbar'
 
 
@@ -46,10 +46,10 @@ import AppBars from './appbar'
   },
   {
     name: 'Tours ',
-    path: "/customer/dashboard",
-    icon: <MaterialIcons.Message />,
+    path: "/customer/tours",
+    icon: <MaterialIcons.Satellite />,
     className: "nav-text",
-    component: <HotelDetails/>,
+    component: <Tours/>,
   },
     {
     name: 'Restaurants',

@@ -9,7 +9,7 @@ const drawerWidth = 240;
 
 
 
-function Restaurants(props) {
+function Tours(props) {
 
 
     return (
@@ -20,11 +20,7 @@ function Restaurants(props) {
 
                 <MediaCard ></MediaCard>
 
-                <MediaCard ></MediaCard>
-                <MediaCard ></MediaCard>
-                <MediaCard ></MediaCard>
-
-                <MediaCard ></MediaCard>
+               
 
             </Grid>
 
@@ -74,4 +70,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default Restaurants;
+export default Tours;

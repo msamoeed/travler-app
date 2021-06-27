@@ -12,7 +12,6 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Register from './views/Signup/signup'
 import Dashboard from './views/Customer/restaurants'
 
-import Form from './views/HotelManager/addHotelForm'
 import Hotel from './views/Customer/hotelDetails'
 import App from './App'
 

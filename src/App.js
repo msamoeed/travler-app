@@ -10,44 +10,43 @@ import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Register from './views/Signup/signup'
 import Dashboard from './views/Customer/restaurants'
-import HotelManagerDash from './views/HotelManager/dashboard.js'
-import Form from './views/HotelManager/addHotelForm'
+import HotelManagerDash from './views/HotelManager/home.js'
 import Hotel from './views/Customer/hotelHome'
 import NavData from "./views/Customer/drawerData";
 import CustomerHome from './views/Customer/home';
 import LoginScreen from './views/Login/login';
 import Restaurants from './views/Customer/restaurants'
-
+import HotelManagerNavData from './views/HotelManager/drawerData'
+import HotelManagerHome from './views/HotelManager/home'
 const hist = createBrowserHistory();
 
 
 
 const App = ({ match }) => {
 
-    return (
-        <div className="App">
+  return (
+    <div className="App">
 
-<Router history={hist}>
-  <Switch>
-  
-    <Route path="/login" component={Login} />
-    <Route path="/register" component={Register} /> 
-    <Route path="/user/dashboard" component={Dashboard} />
-    <Route path="/Hoteldashboard" component={HotelManagerDash} />
-    <Route path="/Form" component={Form} />
-    <Route path="/hotelHome" component={Hotel} />
-   {/* <Route path="/customer" component = {()=><CustomerHome component= { <Restaurants/> } /> } /> */}
+      <Router history={hist}>
+        <Switch>
 
-    
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/user/dashboard" component={Dashboard} />
+          <Route path="/Hoteldashboard" component={HotelManagerDash} />
+          <Route path="/hotelHome" component={Hotel} />
+          {/* <Route path="/customer" component = {()=><CustomerHome component= { <Restaurants/> } /> } /> */}
+
+
           {NavData.map((item, index) => {
 
-            if (item.name =='Hotels' | item.name == 'Restaurants') {
+            if (item.name == 'Hotels' | item.name == 'Restaurants') {
               console.log("HELLOR WORLDDD")
               return (
                 <Route
                   key={index}
                   path={item.path}
-                  component={() => <CustomerHome component={item.component} appbar={item.appbar}  />}
+                  component={() => <CustomerHome component={item.component} appbar={item.appbar} />}
                 />
               );
             }
@@ -56,24 +55,41 @@ const App = ({ match }) => {
                 <Route
                   key={index}
                   path={item.path}
-                  component={() => <CustomerHome component={item.component}   />}
+                  component={() => <CustomerHome component={item.component} />}
                 />
               );
             }
-            
-            
+
+
+          })}
+
+
+          {HotelManagerNavData.map((item, index) => {
+
+
+            console.log("HELLOR WORLDDD")
+            return (
+              <Route
+                key={index}
+                path={item.path}
+                component={() => <HotelManagerHome component={item.component}  />}
+              />
+            );
+
+
+
+
           })}
 
 
 
 
-    
-  </Switch>
-</Router>,
+        </Switch>
+      </Router>,
 
 
-        </div>
-    )
+    </div>
+  )
 }
 
 export default App;
