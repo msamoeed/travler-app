@@ -12,6 +12,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import {
@@ -36,7 +38,7 @@ import {
   DatePicker,
 } from '@material-ui/pickers';
 
-function  DatePickerWrapper(props) {
+function DatePickerWrapper(props) {
   const {
     input: { name, onChange, value, ...restInput },
     meta,
@@ -103,7 +105,7 @@ const validate = values => {
 
 
 function TabPanel(props) {
-  
+
   const { children, value, index, ...other } = props;
 
   return (
@@ -172,230 +174,235 @@ export default function HotelsScreen() {
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Hotel" {...a11yProps(0)} />
           <Tab label="Register Hotel" {...a11yProps(1)} />
-    
+
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
-        <Grid>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+          <Grid>
+            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
 
 
-          </CardHotel>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+            </CardHotel>
+            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
 
 
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+            </CardHotel>
+            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
 
 
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+            </CardHotel>
+            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
 
 
-</CardHotel>
-        </Grid>
+            </CardHotel>
+          </Grid>
 
 
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
 
-      <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
-      <CssBaseline />
-      <Typography variant="h4" align="center" component="h1" gutterBottom>
-        Create Hotel
-      </Typography>
-      
-    
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{ employed: true, stooge: 'larry' }}
-        validate={validate}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit} noValidate>
-            <Paper style={{ padding: 16 }}>
-              <Grid container alignItems="flex-start" spacing={1}>
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    required
-                    name="Hotel Name"
-                    component={TextField}
-                    type="text"
-                    label="Hotel Name"
-                  />
-                </Grid>
-               
-                <Grid item xs={12}>
-                  <Field
-                    name="email"
-                    fullWidth
-                    required
-                    component={TextField}
-                    type="email"
-                    label="Address"
-                  />
-                </Grid>
+        <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+          <CssBaseline />
+          <Typography variant="h4" align="center" component="h1" gutterBottom>
+            Create Hotel
+          </Typography>
 
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    name="city"
-                    component={Select}
-                    label="Select a City"
-                    formControlProps={{ fullWidth: true }}
-                  >
-                    <MenuItem value="London">London</MenuItem>
-                    <MenuItem value="Paris">Paris</MenuItem>
-                    <MenuItem value="Budapest">
-                      A city with a very long Name
-                    </MenuItem>
-                  </Field>
-                </Grid>
-               
-                <Grid item>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">Features</FormLabel>
-                    <FormGroup row>
-                      <FormControlLabel
-                        label="Gym"
-                        control={
-                          <Field
-                            name="sauces"
-                            component={Checkbox}
-                            type="checkbox"
-                            value="ketchup"
-                          />
-                        }
+
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{ employed: true, stooge: 'larry' }}
+            validate={validate}
+            render={({ handleSubmit, reset, submitting, pristine, values }) => (
+              <form onSubmit={handleSubmit} noValidate>
+                <Paper style={{ padding: 16 }}>
+                  <Grid container alignItems="flex-start" spacing={1}>
+                    <Grid item xs={12}>
+                      <Field
+                        fullWidth
+                        required
+                        name="Hotel Name"
+                        component={TextField}
+                        type="text"
+                        label="Hotel Name"
                       />
-                      <FormControlLabel
-                        label="Restaurant"
-                        control={
-                          <Field
-                            name="sauces"
-                            component={Checkbox}
-                            type="checkbox"
-                            value="mustard"
-                          />
-                        }
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Field
+                        name="email"
+                        fullWidth
+                        required
+                        component={TextField}
+                        type="email"
+                        label="Address"
                       />
-                      <FormControlLabel
-                        label="Swimming Pool"
-                        control={
-                          <Field
-                            name="sauces"
-                            component={Checkbox}
-                            type="checkbox"
-                            value="salsa"
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Field
+                        fullWidth
+                        name="city"
+                        component={Select}
+                        label="Select a City"
+                        formControlProps={{ fullWidth: true }}
+                      >
+                        <MenuItem value="London">London</MenuItem>
+                        <MenuItem value="Paris">Paris</MenuItem>
+                        <MenuItem value="Budapest">
+                          A city with a very long Name
+                        </MenuItem>
+                      </Field>
+                    </Grid>
+
+                    <Grid item>
+                      <FormControl component="fieldset">
+                        <FormLabel component="legend">Features</FormLabel>
+                        <FormGroup row>
+                          <FormControlLabel
+                            label="Gym"
+                            control={
+                              <Field
+                                name="sauces"
+                                component={Checkbox}
+                                type="checkbox"
+                                value="ketchup"
+                              />
+                            }
                           />
-                        }
-                      />
-                      <FormControlLabel
-                        label="Mall"
-                        control={
-                          <Field
-                            name="sauces"
-                            component={Checkbox}
-                            type="checkbox"
-                            value="guacamole"
+                          <FormControlLabel
+                            label="Restaurant"
+                            control={
+                              <Field
+                                name="sauces"
+                                component={Checkbox}
+                                type="checkbox"
+                                value="mustard"
+                              />
+                            }
                           />
-                        }
+                          <FormControlLabel
+                            label="Swimming Pool"
+                            control={
+                              <Field
+                                name="sauces"
+                                component={Checkbox}
+                                type="checkbox"
+                                value="salsa"
+                              />
+                            }
+                          />
+                          <FormControlLabel
+                            label="Mall"
+                            control={
+                              <Field
+                                name="sauces"
+                                component={Checkbox}
+                                type="checkbox"
+                                value="guacamole"
+                              />
+                            }
+                          />
+                        </FormGroup>
+                      </FormControl>
+                    </Grid>
+
+                    <div>
+                      <input
+                        accept="image/*"
+                        className={classes.input}
+                        id="icon-button-photo"
+                        //    onChange={this.handleCapture}
+                        type="file"
                       />
-                    </FormGroup>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    name="notes"
-                    component={TextField}
-                    multiline
-                    label="Notes"
-                  />
-                </Grid>
-               
-              
-                <Grid item style={{ marginTop: 16 }}>
-                  <Button
-                    type="button"
-                    variant="contained"
-                    onClick={reset}
-                    disabled={submitting || pristine}
-                  >
-                    Reset
-                  </Button>
-                </Grid>
-                <Grid item style={{ marginTop: 16 }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    disabled={submitting}
-                  >
-                    Submit
-                  </Button>
-                </Grid>
-              </Grid>
-            </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
-          </form>
-        )}
-      />
-    </div>
+                      <label htmlFor="icon-button-photo">
+                        <IconButton color="primary" component="span">
+                          <PhotoCamera />
+                        </IconButton>
+                      </label>
+                    </div>
+
+                    <Grid item style={{ marginTop: 16 }}>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={reset}
+                        disabled={submitting || pristine}
+                      >
+                        Reset
+                      </Button>
+                    </Grid>
+                    <Grid item style={{ marginTop: 16 }}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        disabled={submitting}
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Paper>
+                {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
+              </form>
+            )}
+          />
+        </div>
 
       </TabPanel>
-    
+
     </div>
   );
 }
 
 
-  const   CardHotel = ({hotelName, roomNumber, date}) => {
-    const classes = useStyles();
+const CardHotel = ({ hotelName, roomNumber, date }) => {
+  const classes = useStyles();
 
-        return (
+  return (
     <Card className={classes.root} variant="outlined">
-    <CardContent>
-      <Typography className={classes.title} color="textSecondary" gutterBottom>
-        {hotelName}
-      </Typography>
-      <Typography variant="h5" component="h2">
-        Room Number {roomNumber}
-      </Typography>
-      <Typography className={classes.pos} color="textSecondary">
-        {date}
-      </Typography >
-     
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </Card>
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          {hotelName}
+        </Typography>
+        <Typography variant="h5" component="h2">
+          Room Number {roomNumber}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {date}
+        </Typography >
+
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
   )
 }
 
 
-const   CardRestaurant = ({restaurantName, date}) => {
+const CardRestaurant = ({ restaurantName, date }) => {
   const classes = useStyles();
 
-      return (
-  <Card className={classes.root} variant="outlined">
-  <CardContent>
-    <Typography className={classes.title} color="textSecondary" gutterBottom>
-      {restaurantName}
-    </Typography>
-    
-    <Typography className={classes.pos} color="textSecondary">
-      {date}
-    </Typography>
-   
-  </CardContent>
-  <CardActions>
-    <Button size="small">Learn More</Button>
-  </CardActions>
-</Card>
-)
+  return (
+    <Card className={classes.root} variant="outlined">
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          {restaurantName}
+        </Typography>
+
+        <Typography className={classes.pos} color="textSecondary">
+          {date}
+        </Typography>
+
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  )
 }
 
 

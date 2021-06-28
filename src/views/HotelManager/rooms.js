@@ -14,6 +14,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import {
     Typography,
     Paper,
@@ -225,6 +227,21 @@ export default function RoomsScreen() {
                                                 label="Price"
                                             />
                                         </Grid>
+
+                                        <div>
+                                            <input
+                                                accept="image/*"
+                                                className={classes.input}
+                                                id="icon-button-photo"
+                                                //    onChange={this.handleCapture}
+                                                type="file"
+                                            />
+                                            <label htmlFor="icon-button-photo">
+                                                <IconButton color="primary" component="span">
+                                                    <PhotoCamera />
+                                                </IconButton>
+                                            </label>
+                                        </div>
 
 
 
