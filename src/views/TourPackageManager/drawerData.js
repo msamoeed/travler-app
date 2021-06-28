@@ -11,53 +11,61 @@ import PropTypes from "prop-types";
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
-import AddHotel from './hotel'
+import Hotel from '../TourPackageManager/hotels'
+import Restaurants from '../TourPackageManager/restaurants'
 import Bookings from './bookings'
-import Rooms from './rooms'
 const NavData = [
-
 
     {
         name: 'Hotel',
-        path: "/hotelManager/hotels",
+        path: "/tourManager/hotels",
         icon: <MaterialIcons.WorkOutline />,
         className: "nav-text",
-         component: <AddHotel/>,
+        component: <Hotel/>,
 
     },
     {
-        name: 'Rooms',
-        path: "/hotelManager/rooms",
+        name: 'Restaurants',
+        path: "/tourManager/restaurants",
         icon: <MaterialIcons.WorkOutline />,
         className: "nav-text",
-         component: <Rooms/>,
+       component: <Restaurants />,
 
     },
-    // {
-    //     name: 'Rooms',
-    //     path: "/hotelManager/rooms",
-    //     icon: <MaterialIcons.WorkOutline />,
-    //     className: "nav-text",
-    //     // component: <HotelDetails/>,
 
-
-
-    // },
     {
-        name: 'Bookings',
-        path: "/hotelManager/bookings",
+        name: 'Transport',
+        path: "/tourManager/trasnport",
+        icon: <MaterialIcons.WorkOutline />,
+        className: "nav-text",
+    //    component: <Rooms />,
+
+    },
+
+    {
+        name: 'Events',
+        path: "/tourManager/events",
         icon: <MaterialIcons.Satellite />,
         className: "nav-text",
-         component: <Bookings/>,
+        component: <Bookings />,
     },
-   
-   
+
+    {
+        name: 'Bookings',
+        path: "/tourManager/bookings",
+        icon: <MaterialIcons.Satellite />,
+        className: "nav-text",
+        component: <Bookings />,
+    },
+
+
+
     {
         name: "Logout",
         path: "/login",
         icon: <MaterialIcons.ExitToApp />,
         className: "nav-text",
-         component: <LoginScreen />,
+        component: <LoginScreen />,
     },
 ];
 

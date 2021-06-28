@@ -18,6 +18,8 @@ import LoginScreen from './views/Login/login';
 import Restaurants from './views/Customer/restaurants'
 import HotelManagerNavData from './views/HotelManager/drawerData'
 import HotelManagerHome from './views/HotelManager/home'
+import TourManagerNavData from './views/TourPackageManager/drawerData'
+import TourManagerHome from './views/TourPackageManager/home'
 const hist = createBrowserHistory();
 
 
@@ -65,9 +67,6 @@ const App = ({ match }) => {
 
 
           {HotelManagerNavData.map((item, index) => {
-
-
-            console.log("HELLOR WORLDDD")
             return (
               <Route
                 key={index}
@@ -75,12 +74,17 @@ const App = ({ match }) => {
                 component={() => <HotelManagerHome component={item.component}  />}
               />
             );
-
-
-
-
           })}
 
+        {TourManagerNavData.map((item, index) => {
+            return (
+              <Route
+                key={index}
+                path={item.path}
+                component={() => <TourManagerHome component={item.component}  />}
+              />
+            );
+          })}
 
 
 
