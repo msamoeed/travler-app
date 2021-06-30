@@ -6,7 +6,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-
+import { Container, Row, Col,Modal } from "react-bootstrap";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow"
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +20,13 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, withStyles, } from '@material-ui/core/styles';
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import EditIcon from "@material-ui/icons/Edit";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 import {
   Typography,
@@ -23,7 +35,7 @@ import {
   Grid,
 
   CssBaseline,
-  RadioGroup,
+ 
   FormLabel,
   MenuItem,
   FormGroup,
@@ -32,57 +44,10 @@ import {
 } from '@material-ui/core';
 // Picker
 
-import {
-  MuiPickersUtilsProvider,
-  TimePicker,
-  DatePicker,
-} from '@material-ui/pickers';
 
-function DatePickerWrapper(props) {
-  const {
-    input: { name, onChange, value, ...restInput },
-    meta,
-    ...rest
-  } = props;
-  const showError =
-    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
 
-  return (
-    <DatePicker
-      {...rest}
-      name={name}
-      helperText={showError ? meta.error || meta.submitError : undefined}
-      error={showError}
-      inputProps={restInput}
-      onChange={onChange}
-      value={value === '' ? null : value}
-    />
-  );
-}
-
-function TimePickerWrapper(props) {
-  const {
-    input: { name, onChange, value, ...restInput },
-    meta,
-    ...rest
-  } = props;
-  const showError =
-    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
-
-  return (
-    <TimePicker
-      {...rest}
-      name={name}
-      helperText={showError ? meta.error || meta.submitError : undefined}
-      error={showError}
-      inputProps={restInput}
-      onChange={onChange}
-      value={value === '' ? null : value}
-    />
-  );
-}
+import { hist } from '../../App'
+const axios = require('axios');
 
 const onSubmit = async values => {
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -157,16 +122,118 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+const tablestyle = {
+  backgroundColor: "#9229ac",
+  color: "white",
+};
+
+const TableContainerStyle = {
+  height: 450,
+  overflowY: "scroll",
+  overflowX: "auto",
+  display: "inline-block",
+};
+
+const saveBtnStyle = {
+  width: 770,
+  backgroundColor: "#9229ac",
+  color: "white",
+  textTransform: "none",
+};
+
+
+
+function insertHotel(values){
+
+  const headers = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+   
+  }
+  console.log(values);
+  console.log( localStorage.getItem("uid"));
+  var postData = {
+    name : values.name,
+    features : values.features,
+    address : values.address,
+    city : values.city,
+    hotelManager : localStorage.getItem("uid"),
+    images : ["https://source.unsplash.com/random",
+    "https://source.unsplash.com/random",
+    "https://source.unsplash.com/random",
+    "https://source.unsplash.com/random"
+      
+    ]
+  }
+  axios.post("http://localhost:5556/addhotel", postData, headers)
+
+  
+      .then(function (response) {
+          console.log(response.data._id);
+          if (response.status == 200) {
+                 alert("Hotel Created!")
+          }
+      })
+      .catch(function (error) {
+          alert(error)
+      });
+}
+
+var data;
+
+
 
 export default function HotelsScreen() {
+
+  
+
+  console.log("HELLO WORKDD");
+     
+  
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [list, setList] = React.useState([]);
+
+ 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const bull = <span className={classes.bullet}>•</span>;
 
+  function getList() {
+    return fetch("http://localhost:5556/gethotels/")
+      .then(data => data.json())
+  }
+
+  React.useEffect(() => {
+    let mounted = true;
+    getList()
+      .then(items => {
+        if(mounted) {
+          setList(items)
+        }
+      })
+    return () => mounted = false;
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -179,24 +246,88 @@ export default function HotelsScreen() {
       </AppBar>
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
-          <Grid>
-            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+         
+        <Row>
+          <Col style={{ marginLeft: 5 }}>
+            <TableContainer component={Paper} style={TableContainerStyle}>
+              <Table
+                stickyHeader
+                style={{ width: "100%" }}
+                aria-label="customized table"
+              >
+                <TableHead>
+                  <TableRow>
+                  <TableCell style={tablestyle}>Sr. No</TableCell>
 
+                    <TableCell style={tablestyle}>Hotel ID</TableCell>
+                    <TableCell style={tablestyle} align="left">
+                      Name
+                    </TableCell>
+                    <TableCell style={tablestyle} align="left">
+                      City
+                    </TableCell>
+                    <TableCell style={tablestyle} align="left">
+                      Address
+                    </TableCell>
+                    <TableCell style={tablestyle} align="left">
+                      Manager ID
+                    </TableCell>
+                    
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {list.map((row,index) => (
+                    
+                    <StyledTableRow key={row._id}>
+                      <TableCell component="th" scope="row">
+                        {++index}
+                      </TableCell>
 
-            </CardHotel>
-            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
+                      <TableCell align="left">{row._id}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.city}</TableCell>
 
-
-            </CardHotel>
-            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-            </CardHotel>
-            <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-            </CardHotel>
-          </Grid>
+                      <TableCell align="left">{row.address}</TableCell>
+                      <TableCell align="left">{row.hotelManager}</TableCell>
+                      <TableCell align="left">
+                        <div>
+                          <IconButton onClick={()=>{
+                          //  viewBtn(row)
+                            }}>
+                            <VisibilityIcon
+                              style={{ color: "#10b7cb", width: "18" }}
+                                />
+                          </IconButton>
+                          <IconButton 
+                          onClick={()=>
+                          {
+                            
+                            //deleteBtn(row)
+                          
+                          }}
+                          
+                          >
+                            <DeleteForeverIcon
+                              style={{ color: "red", width: "18" }}
+                            />
+                          </IconButton>
+                          <IconButton 
+                         // onClick={()=>{editBtn(row)}}
+                          
+                          >
+                            <EditIcon style={{ color: "green", width: "18" }}
+                            
+                             />
+                          </IconButton>
+                        </div>
+                      </TableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Col>
+        </Row>
 
 
         </div>
@@ -212,7 +343,7 @@ export default function HotelsScreen() {
 
           <Form
             onSubmit={onSubmit}
-            initialValues={{ employed: true, stooge: 'larry' }}
+            initialValues={{  }}
             validate={validate}
             render={({ handleSubmit, reset, submitting, pristine, values }) => (
               <form onSubmit={handleSubmit} noValidate>
@@ -222,7 +353,7 @@ export default function HotelsScreen() {
                       <Field
                         fullWidth
                         required
-                        name="Hotel Name"
+                        name="name"
                         component={TextField}
                         type="text"
                         label="Hotel Name"
@@ -231,7 +362,7 @@ export default function HotelsScreen() {
 
                     <Grid item xs={12}>
                       <Field
-                        name="email"
+                        name="address"
                         fullWidth
                         required
                         component={TextField}
@@ -264,10 +395,10 @@ export default function HotelsScreen() {
                             label="Gym"
                             control={
                               <Field
-                                name="sauces"
+                                name="features"
                                 component={Checkbox}
                                 type="checkbox"
-                                value="ketchup"
+                                value="Gym"
                               />
                             }
                           />
@@ -275,10 +406,10 @@ export default function HotelsScreen() {
                             label="Restaurant"
                             control={
                               <Field
-                                name="sauces"
+                              name="features"
                                 component={Checkbox}
                                 type="checkbox"
-                                value="mustard"
+                                value="Restaurant"
                               />
                             }
                           />
@@ -286,10 +417,10 @@ export default function HotelsScreen() {
                             label="Swimming Pool"
                             control={
                               <Field
-                                name="sauces"
+                              name="features"
                                 component={Checkbox}
                                 type="checkbox"
-                                value="salsa"
+                                value="Swimming Pool"
                               />
                             }
                           />
@@ -297,10 +428,10 @@ export default function HotelsScreen() {
                             label="Mall"
                             control={
                               <Field
-                                name="sauces"
+                              name="features"
                                 component={Checkbox}
                                 type="checkbox"
-                                value="guacamole"
+                                value="Mall"
                               />
                             }
                           />
@@ -338,6 +469,9 @@ export default function HotelsScreen() {
                         variant="contained"
                         color="primary"
                         type="submit"
+                        onClick={()=>{
+                         insertHotel(values)
+                        }}
                         disabled={submitting}
                       >
                         Submit
@@ -345,7 +479,7 @@ export default function HotelsScreen() {
                     </Grid>
                   </Grid>
                 </Paper>
-                {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
+                <pre>{JSON.stringify(values, 0, 2)}</pre>
               </form>
             )}
           />
@@ -357,57 +491,38 @@ export default function HotelsScreen() {
   );
 }
 
+// function MediaCard(name, address, images, key) {
+//   const classes = useStyles();
 
-const CardHotel = ({ hotelName, roomNumber, date }) => {
-  const classes = useStyles();
-
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {hotelName}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Room Number {roomNumber}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {date}
-        </Typography >
-
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  )
-}
-
-
-const CardRestaurant = ({ restaurantName, date }) => {
-  const classes = useStyles();
-
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {restaurantName}
-        </Typography>
-
-        <Typography className={classes.pos} color="textSecondary">
-          {date}
-        </Typography>
-
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  )
-}
-
-
-
-
-
+//   return (
+//       <Box m={3} pt={5    }>
+//     <Card className={classes.root}>
+//       <CardActionArea>
+//         <CardMedia
+//           className={classes.media}
+//           image= {images[0]}
+//           title="Contemplative Reptile"
+//         />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="h2">
+//             {name}
+//           </Typography>
+//           <Typography variant="body2" color="textSecondary" component="p">
+//            {address}
+//           </Typography>
+//         </CardContent>
+//       </CardActionArea>
+//       <CardActions>
+//         <Button size="small" color="primary">
+//           View
+//         </Button>
+//         <Button size="small" color="primary">
+//           Add to Favorite
+//         </Button>
+//       </CardActions>
+//     </Card>
+//     </Box>
+//   );
+// }
 
 

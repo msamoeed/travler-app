@@ -18,6 +18,53 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { hist } from '../../App'
+const axios = require('axios');
+
+function signInHotelManager(email, password, type) {
+
+    var url = '';
+    var path = ''
+
+    console.log(email)
+    console.log(password)
+    console.log(type)
+
+    if (type == 30) {
+        url = 'http://localhost:5556/hotelManager/login'
+        path = '/hotelManager/hotels'
+    }
+
+    var postData = {
+        email: email,
+        password: password,
+
+    }
+
+    console.log("Asdas")
+    axios.post(url, postData, {
+
+    })
+        .then(function (response) {
+            console.log(response.data._id);
+            if (response.status == 200) {
+
+                if (response.data.length == 0) {
+                    alert("Email or password incorrect")
+                }
+                else {
+                    
+                    localStorage.setItem("uid", response.data[0]._id);
+                    hist.push(path)
+                }
+
+
+            }
+        })
+        .catch(function (error) {
+            alert(error)
+        });
+}
 
 function Copyright() {
     return (
@@ -66,15 +113,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
     const classes = useStyles();
     const [state, setState] = React.useState({
-        age: '',
-        name: 'hai',
+        type: '',
+        email: '',
+        password: ''
     });
 
     const handleChange = (event) => {
         const name = event.target.name;
+
+        console.log(event.target.name)
         setState({
             ...state,
             [name]: event.target.value,
+
+
         });
     };
 
@@ -99,6 +151,8 @@ export default function SignInSide() {
                             fullWidth
                             id="email"
                             label="Email Address"
+                            value={state.email}
+                            onChange={handleChange}
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -113,6 +167,11 @@ export default function SignInSide() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+
+                            value={state.password}
+                            onChange={handleChange}
+
+
                         />
 
                         <Grid item xs={12}>
@@ -120,11 +179,11 @@ export default function SignInSide() {
                                 <InputLabel htmlFor="outlined-age-native-simple">Login as</InputLabel>
                                 <Select
                                     native
-                                    value={state.age}
+                                    value={state.type}
                                     onChange={handleChange}
                                     label="Login as"
                                     inputProps={{
-                                        name: 'age',
+                                        name: 'type',
                                         id: 'outlined-age-native-simple',
                                     }}
                                 >
@@ -132,8 +191,8 @@ export default function SignInSide() {
                                     <option value={10}>Tourist</option>
                                     <option value={20}>Restaurant Manager</option>
                                     <option value={30}>Hotel Manager</option>
-                                    <option value={30}>Event Manager</option>
-                                    <option value={30}>Tour Package Manager</option>
+                                    <option value={40}>Event Manager</option>
+                                    <option value={50}>Tour Package Manager</option>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -142,12 +201,15 @@ export default function SignInSide() {
                             label="Remember me"
                         />
                         <Button
-                            type="submit"
+
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={classes.submit}
-                            
+                            onClick={() => {
+                                signInHotelManager(state.email, state.password, state.type)
+
+                            }}
+
                         >
                             Sign In
                         </Button>
@@ -158,7 +220,7 @@ export default function SignInSide() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
