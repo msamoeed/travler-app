@@ -211,7 +211,6 @@ export default function HotelsScreen() {
   
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [list, setList] = React.useState([]);
   const { onClose, selectedValue, open } = React.useState('');
 
   const handleClose = () => {
@@ -227,6 +226,8 @@ export default function HotelsScreen() {
     setValue(newValue);
   };
   const bull = <span className={classes.bullet}>•</span>;
+
+  const [list, setList] = React.useState([]);
 
   function getList() {
     return fetch("http://localhost:5556/gethotelByHotelId/" + localStorage.getItem("uid"))
@@ -285,9 +286,6 @@ export default function HotelsScreen() {
                     <TableCell style={tablestyle} align="left">
                       Manager ID
                     </TableCell>
-                    <TableCell style={tablestyle} align="left">
-                      Actions
-                    </TableCell>
                     
                   </TableRow>
                 </TableHead>
@@ -338,7 +336,8 @@ export default function HotelsScreen() {
                         </div>
                       </TableCell>
                     </StyledTableRow>
-                  ))}
+                  )
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

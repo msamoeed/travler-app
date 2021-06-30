@@ -313,7 +313,9 @@ const HotelDetails = () => {
                             <div className={classes.featureDiv}>
                                 {text}
                             </div>
-                        ))}
+                        ))
+                        
+                        }
                 </Grid>
 
 
