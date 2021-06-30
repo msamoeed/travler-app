@@ -98,7 +98,7 @@ function signUpHotelManager(email, password, address, name, type) {
   }
 
   console.log("Asdas")
-  axios.post("http://localhost:5556/tourManager/reg", postData, {
+  axios.post(url, postData, {
 
   })
     .then(function (response) {
