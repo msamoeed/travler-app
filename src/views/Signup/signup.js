@@ -64,10 +64,31 @@ function signUpHotelManager(email, password, address, name, type) {
   var url = '';
   var path = ''
 
-  if (type == 30) {
+  alert(type);
+
+  if (type == 10) {
+    url = 'http://localhost:5556/tourist/reg'
+    path = '/hotelManager/hotels'
+  }
+
+  else if (type == 20) {
+    url = 'http://localhost:5556/restaurantManager/reg'
+   // path = '/hotelManager/hotels'
+  }
+  else if (type == 30) {
     url = 'http://localhost:5556/hotelManager/reg'
     path = '/hotelManager/hotels'
   }
+
+  else if (type == 40) {
+    url = 'http://localhost:5556/eventManager/reg'
+    path = '/hotelManager/hotels'
+  }
+  else if (type == 50) {
+    url = 'http://localhost:5556/tourManager/reg'
+    path = '/hotelManager/hotels'
+  }
+
 
   var postData = {
     email: email,
@@ -77,7 +98,7 @@ function signUpHotelManager(email, password, address, name, type) {
   }
 
   console.log("Asdas")
-  axios.post(url, postData, {
+  axios.post("http://localhost:5556/tourManager/reg", postData, {
 
   })
     .then(function (response) {
