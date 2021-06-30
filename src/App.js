@@ -20,7 +20,7 @@ import HotelManagerNavData from './views/HotelManager/drawerData'
 import HotelManagerHome from './views/HotelManager/home'
 import TourManagerNavData from './views/TourPackageManager/drawerData'
 import TourManagerHome from './views/TourPackageManager/home'
-const hist = createBrowserHistory();
+export const hist = createBrowserHistory();
 
 
 
