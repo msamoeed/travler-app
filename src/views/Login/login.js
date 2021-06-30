@@ -19,28 +19,16 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundImage: '../../assets/img/travellogin.jpg',
+        //backgroundRepeat: 'no-repeat',
+        //backgroundColor:
+           // theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
@@ -158,14 +146,12 @@ export default function SignInSide() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>
-                        <Box mt={5}>
-                            <Copyright />
-                        </Box>
+                        
                     </form>
                 </div>
             </Grid>

@@ -1,7 +1,5 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +12,7 @@ import NavData from "./drawerData.js";
 
 import { Link } from "react-router-dom";
 
-import logo from '../../assets/img/reactlogo.png'; // Tell webpack this JS file uses this image
+import logo from '../../assets/logos/logo_transparent.png'; // Tell webpack this JS file uses this image
 
 
 

@@ -20,18 +20,7 @@ import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+
   
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -158,16 +147,14 @@ function Copyright() {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
+
       </Container>
     );
   }
