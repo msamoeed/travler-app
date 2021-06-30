@@ -27,6 +27,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Popup from '../../components/Popup/popup'
 
 import {
   Typography,
@@ -211,7 +212,15 @@ export default function HotelsScreen() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [list, setList] = React.useState([]);
+  const { onClose, selectedValue, open } = React.useState('');
 
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
  
 
   const handleChange = (event, newValue) => {
@@ -220,7 +229,7 @@ export default function HotelsScreen() {
   const bull = <span className={classes.bullet}>•</span>;
 
   function getList() {
-    return fetch("http://localhost:5556/gethotels/")
+    return fetch("http://localhost:5556/gethotelByHotelId/" + localStorage.getItem("uid"))
       .then(data => data.json())
   }
 
@@ -246,6 +255,10 @@ export default function HotelsScreen() {
       </AppBar>
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
+
+        <Popup >
+
+        </Popup>
          
         <Row>
           <Col style={{ marginLeft: 5 }}>

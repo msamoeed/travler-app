@@ -30,9 +30,28 @@ function signInHotelManager(email, password, type) {
     console.log(password)
     console.log(type)
 
-    if (type == 30) {
-        url = 'http://localhost:5556/hotelManager/login'
+    if (type == 10) {
+        url = 'http://localhost:5556/tourist/reg'
         path = '/hotelManager/hotels'
+      }
+    
+      else if (type == 20) {
+        url = 'http://localhost:5556/restaurantManager/reg'
+       // path = '/hotelManager/hotels'
+      }
+      else if (type == 30) {
+        url = 'http://localhost:5556/hotelManager/reg'
+        path = '/hotelManager/hotels'
+      }
+    
+      else if (type == 40) {
+        url = 'http://localhost:5556/eventManager/reg'
+        path = '/hotelManager/hotels'
+      }
+      else if (type == 50) {
+        url = 'http://localhost:5556/tourManager/reg'
+        path = '/hotelManager/hotels'
+      path = '/hotelManager/hotels'
     }
 
     var postData = {
