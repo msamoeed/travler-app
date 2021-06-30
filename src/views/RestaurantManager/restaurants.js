@@ -27,7 +27,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import Popup from '../../components/Popup/popup'
 
 import {
   Typography,
@@ -142,12 +141,12 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tablestyle = {
-  backgroundColor: "#9229ac",
+  backgroundColor: "#539ddb",
   color: "white",
 };
 
 const TableContainerStyle = {
-  height: 450,
+  height: 600,
   overflowY: "scroll",
   overflowX: "auto",
   display: "inline-block",
@@ -162,7 +161,7 @@ const saveBtnStyle = {
 
 
 
-function insertHotel(values){
+function insertRestaurant(values){
 
   const headers = {
     'Content-Type': 'application/json',
@@ -173,24 +172,21 @@ function insertHotel(values){
   console.log( localStorage.getItem("uid"));
   var postData = {
     name : values.name,
-    features : values.features,
     address : values.address,
     city : values.city,
-    hotelManager : localStorage.getItem("uid"),
-    images : ["https://source.unsplash.com/random",
-    "https://source.unsplash.com/random",
-    "https://source.unsplash.com/random",
-    "https://source.unsplash.com/random"
+    restaurantManager : localStorage.getItem("uid"),
+    images : ["https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+    
       
     ]
   }
-  axios.post("http://localhost:5556/addhotel", postData, headers)
+  axios.post("http://localhost:5556/addrestaurant", postData, headers)
 
   
       .then(function (response) {
           console.log(response.data._id);
           if (response.status == 200) {
-                 alert("Hotel Created!")
+                 alert("Restaurant Added!")
           }
       })
       .catch(function (error) {
@@ -212,15 +208,7 @@ export default function HotelsScreen() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [list, setList] = React.useState([]);
-  const { onClose, selectedValue, open } = React.useState('');
 
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
-
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
  
 
   const handleChange = (event, newValue) => {
@@ -229,7 +217,7 @@ export default function HotelsScreen() {
   const bull = <span className={classes.bullet}>•</span>;
 
   function getList() {
-    return fetch("http://localhost:5556/gethotelByHotelId/" + localStorage.getItem("uid"))
+    return fetch("http://localhost:5556/getrestaurants/")
       .then(data => data.json())
   }
 
@@ -248,17 +236,13 @@ export default function HotelsScreen() {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Hotel" {...a11yProps(0)} />
-          <Tab label="Register Hotel" {...a11yProps(1)} />
+          <Tab label="Restaurants" {...a11yProps(0)} />
+          <Tab label="Add Restaurant" {...a11yProps(1)} />
 
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
-
-        <Popup >
-
-        </Popup>
          
         <Row>
           <Col style={{ marginLeft: 5 }}>
@@ -272,7 +256,7 @@ export default function HotelsScreen() {
                   <TableRow>
                   <TableCell style={tablestyle}>Sr. No</TableCell>
 
-                    <TableCell style={tablestyle}>Hotel ID</TableCell>
+                    <TableCell style={tablestyle}>Restaurant ID</TableCell>
                     <TableCell style={tablestyle} align="left">
                       Name
                     </TableCell>
@@ -353,7 +337,7 @@ export default function HotelsScreen() {
         <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
           <CssBaseline />
           <Typography variant="h4" align="center" component="h1" gutterBottom>
-            Create Hotel
+            Add Restaurant
           </Typography>
 
 
@@ -372,7 +356,7 @@ export default function HotelsScreen() {
                         name="name"
                         component={TextField}
                         type="text"
-                        label="Hotel Name"
+                        label="Restaurant Name"
                       />
                     </Grid>
 
@@ -382,7 +366,7 @@ export default function HotelsScreen() {
                         fullWidth
                         required
                         component={TextField}
-                        type="email"
+                        type="text"
                         label="Address"
                       />
                     </Grid>
@@ -395,66 +379,16 @@ export default function HotelsScreen() {
                         label="Select a City"
                         formControlProps={{ fullWidth: true }}
                       >
-                        <MenuItem value="London">London</MenuItem>
-                        <MenuItem value="Paris">Paris</MenuItem>
-                        <MenuItem value="Budapest">
-                          A city with a very long Name
-                        </MenuItem>
+                        <MenuItem value="Islamabad">Islamabad</MenuItem>
+                        <MenuItem value="Peshawar">Peshawar</MenuItem>
+                        <MenuItem value="Karachi">Karachi</MenuItem>
+                        <MenuItem value="Lahore">Lahore</MenuItem>
+                        <MenuItem value="Gilgit">Gilgit</MenuItem>
+                        
                       </Field>
                     </Grid>
 
-                    <Grid item>
-                      <FormControl component="fieldset">
-                        <FormLabel component="legend">Features</FormLabel>
-                        <FormGroup row>
-                          <FormControlLabel
-                            label="Gym"
-                            control={
-                              <Field
-                                name="features"
-                                component={Checkbox}
-                                type="checkbox"
-                                value="Gym"
-                              />
-                            }
-                          />
-                          <FormControlLabel
-                            label="Restaurant"
-                            control={
-                              <Field
-                              name="features"
-                                component={Checkbox}
-                                type="checkbox"
-                                value="Restaurant"
-                              />
-                            }
-                          />
-                          <FormControlLabel
-                            label="Swimming Pool"
-                            control={
-                              <Field
-                              name="features"
-                                component={Checkbox}
-                                type="checkbox"
-                                value="Swimming Pool"
-                              />
-                            }
-                          />
-                          <FormControlLabel
-                            label="Mall"
-                            control={
-                              <Field
-                              name="features"
-                                component={Checkbox}
-                                type="checkbox"
-                                value="Mall"
-                              />
-                            }
-                          />
-                        </FormGroup>
-                      </FormControl>
-                    </Grid>
-
+                    
                     <div>
                       <input
                         accept="image/*"
@@ -486,7 +420,7 @@ export default function HotelsScreen() {
                         color="primary"
                         type="submit"
                         onClick={()=>{
-                         insertHotel(values)
+                         insertRestaurant(values)
                         }}
                         disabled={submitting}
                       >
@@ -506,39 +440,5 @@ export default function HotelsScreen() {
     </div>
   );
 }
-
-// function MediaCard(name, address, images, key) {
-//   const classes = useStyles();
-
-//   return (
-//       <Box m={3} pt={5    }>
-//     <Card className={classes.root}>
-//       <CardActionArea>
-//         <CardMedia
-//           className={classes.media}
-//           image= {images[0]}
-//           title="Contemplative Reptile"
-//         />
-//         <CardContent>
-//           <Typography gutterBottom variant="h5" component="h2">
-//             {name}
-//           </Typography>
-//           <Typography variant="body2" color="textSecondary" component="p">
-//            {address}
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//       <CardActions>
-//         <Button size="small" color="primary">
-//           View
-//         </Button>
-//         <Button size="small" color="primary">
-//           Add to Favorite
-//         </Button>
-//       </CardActions>
-//     </Card>
-//     </Box>
-//   );
-// }
 
 

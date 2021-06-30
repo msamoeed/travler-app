@@ -19,7 +19,9 @@ import Restaurants from './views/Customer/restaurants'
 import HotelManagerNavData from './views/HotelManager/drawerData'
 import HotelManagerHome from './views/HotelManager/home'
 import TourManagerNavData from './views/TourPackageManager/drawerData'
+import RestaurantManagerNavData from './views/RestaurantManager/drawerData'
 import TourManagerHome from './views/TourPackageManager/home'
+import RestaurantManagerHome from './views/RestaurantManager/home'
 export const hist = createBrowserHistory();
 
 
@@ -36,6 +38,7 @@ const App = ({ match }) => {
           <Route path="/register" component={Register} />
           <Route path="/user/dashboard" component={Dashboard} />
           <Route path="/Hoteldashboard" component={HotelManagerDash} />
+          <Route path="/RestaurantDashboard" component={RestaurantManagerHome} />
           <Route path="/hotelHome" component={Hotel} />
           {/* <Route path="/customer" component = {()=><CustomerHome component= { <Restaurants/> } /> } /> */}
 
@@ -82,6 +85,16 @@ const App = ({ match }) => {
                 key={index}
                 path={item.path}
                 component={() => <TourManagerHome component={item.component}  />}
+              />
+            );
+          })}
+
+{RestaurantManagerNavData.map((item, index) => {
+            return (
+              <Route
+                key={index}
+                path={item.path}
+                component={() => <RestaurantManagerHome component={item.component}  />}
               />
             );
           })}
