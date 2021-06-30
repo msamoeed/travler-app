@@ -35,7 +35,7 @@ const NavData = [
 
     {
         name: 'Transport',
-        path: "/tourManager/trasnport",
+        path: "/tourManager/transport",
         icon: <MaterialIcons.WorkOutline />,
         className: "nav-text",
     //    component: <Rooms />,

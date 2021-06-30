@@ -16,16 +16,7 @@ import Tab from '@material-ui/core/Tab';
 import Tours from './tours'
 import AppBars from './appbar'
 
-
-
-
-
-
-
-
  const NavData = [
- 
-
   {
     name: 'Hotels',
     path: "/customer/hotels",
@@ -75,7 +66,5 @@ import AppBars from './appbar'
       component: <LoginScreen />,
   },
 ];
-
-
 
 export default NavData;
