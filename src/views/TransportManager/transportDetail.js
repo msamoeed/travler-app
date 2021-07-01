@@ -1,33 +1,14 @@
-import Toolbar from '@material-ui/core/Toolbar'
-
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import React from 'react'
-import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import { Carousel } from '3d-react-carousal'
-import { Container, Row, Col, Modal } from 'react-bootstrap'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
-import EditIcon from '@material-ui/icons/Edit'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import Button from '@material-ui/core/Button'
-
-import * as MaterialIcons from '@material-ui/icons'
 
 const hotelR = {
-  name: 'Mariott',
-  address: 'G-8, Islamabad, Pakistan',
-  city: 'Islamabad',
   images: [
-    'https://images.unsplash.com/photo-1517457373958-b7bdd4587205',
-    'https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe',
-    'https://images.unsplash.com/photo-1551632436-cbf8dd35adfa'
+    'https://images.unsplash.com/photo-1506015391300-4802dc74de2e',
+    'https://images.unsplash.com/photo-1533127321739-d5dc53c221c8'
   ]
 }
 
@@ -134,7 +115,8 @@ const classes = useStyles
 const mystyle = {
   color: 'black',
   textAlign: 'center',
-  paddingTop: 15
+  paddingTop: 5,
+  paddingBottom: 15
 }
 
 let slidesImage = []
@@ -143,7 +125,13 @@ hotelR.images.map((item, index) => {
   slidesImage.push(<img src={item} alt='1' />)
 })
 
-const EventDetails = ({ eventID, eventName, eventAddress }) => {
+const TransportDetails = ({
+  transportID,
+  transportType,
+  address,
+  city,
+  price
+}) => {
   const classes = useStyles()
   const [list, setList] = React.useState([])
   const [openPopup, setOpenPopup] = React.useState(false)
@@ -151,18 +139,19 @@ const EventDetails = ({ eventID, eventName, eventAddress }) => {
   return (
     <div className={classes.content}>
       <div>
-        <h1 style={mystyle}> {eventName} </h1>
+        <h1 style={mystyle}> {transportType} </h1>
       </div>
+      <div style={mystyle}>Address: {address}</div>
+      <div style={mystyle}>City: {city}</div>
+      <div style={mystyle}>Ticket/-: {price}</div>
 
       <div>
         <Carousel slides={slidesImage} autoplay={true} interval={2000} />
       </div>
-
-      <div style={mystyle}>{eventAddress}</div>
 
       <Grid container spacing={3}></Grid>
     </div>
   )
 }
 
-export default EventDetails
+export default TransportDetails
