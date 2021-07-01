@@ -169,9 +169,10 @@ const App = ({ match }) => {
                 component={
                   <TransportDetail
                     transportID={localStorage.getItem('transportID')}
-                    transportName={localStorage.getItem('transportName')}
-                    transportAddress={localStorage.getItem('transportAddress')}
-                    transportPrice={localStorage.getItem('transportPrice')}
+                    transportType={localStorage.getItem('transportType')}
+                    address={localStorage.getItem('transportAddress')}
+                    city={localStorage.getItem('transportCity')}
+                    price={localStorage.getItem('price')}
                   />
                 }
               />

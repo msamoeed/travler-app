@@ -1,43 +1,18 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Form, Field } from 'react-final-form'
-import { TextField, Checkbox, Radio, Select } from 'final-form-material-ui'
+import { TextField, Select } from 'final-form-material-ui'
 import Button from '@material-ui/core/Button'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import Box from '@material-ui/core/Box'
-import { Container, Row, Col, Modal } from 'react-bootstrap'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
-import PropTypes from 'prop-types'
 
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
-import EditIcon from '@material-ui/icons/Edit'
-import VisibilityIcon from '@material-ui/icons/Add'
 
 import {
   Typography,
   Paper,
-  Link,
   Grid,
   CssBaseline,
-  FormLabel,
-  MenuItem,
-  FormGroup,
-  FormControl,
-  FormControlLabel
+  MenuItem
 } from '@material-ui/core'
 
 const axios = require('axios')
@@ -68,7 +43,13 @@ const saveBtnStyle = {
   textTransform: 'none'
 }
 
-export default function EditEventScreen ({ eventID, name, address, city }) {
+export default function EditEventScreen ({
+  transportID,
+  type,
+  address,
+  city,
+  price
+}) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
   const [list, setList] = React.useState([])
@@ -89,7 +70,7 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
     window.alert(JSON.stringify(values, 0, 2))
   }
 
-  function editEvent (values, eventID) {
+  function editTransport (values, transportID) {
     const headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -97,16 +78,17 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
     console.log(values)
     console.log(localStorage.getItem('uid'))
     var putData = {
-      name: values.name,
+      transportType: values.type,
       address: values.address,
       city: values.city,
-      eventManager: localStorage.getItem('uid'),
-      images: [
-        'https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'
-      ]
+      transportManager: localStorage.getItem('uid')
     }
     axios
-      .put('http://localhost:5556/editEvent/' + eventID, putData, headers)
+      .put(
+        'http://localhost:5556/editTransport/' + transportID,
+        putData,
+        headers
+      )
 
       .then(function (response) {
         console.log(response.data._id)
@@ -123,7 +105,7 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
     <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
       <CssBaseline />
       <Typography variant='h4' align='center' component='h1' gutterBottom>
-        Edit Event
+        Edit Transport
       </Typography>
 
       <Form
@@ -138,10 +120,23 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                   <Field
                     fullWidth
                     required
-                    name='name'
+                    name='type'
+                    defaultValue={type}
                     component={TextField}
                     type='text'
-                    label={name}
+                    label='Transport Type'
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    required
+                    name='price'
+                    defaultValue={price}
+                    component={TextField}
+                    type='Number'
+                    label='Transport Price'
                   />
                 </Grid>
 
@@ -150,9 +145,10 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     name='address'
                     fullWidth
                     required
+                    defaultValue={address}
                     component={TextField}
                     type='text'
-                    label={address}
+                    label='Address'
                   />
                 </Grid>
 
@@ -161,6 +157,7 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     fullWidth
                     name='city'
                     component={Select}
+                    defaultValue={city}
                     label={city}
                     formControlProps={{ fullWidth: true }}
                   >
@@ -203,7 +200,7 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     color='primary'
                     type='submit'
                     onClick={() => {
-                      editEvent(values, eventID)
+                      editTransport(values, transportID)
                     }}
                     disabled={submitting}
                   >

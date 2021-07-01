@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MailIcon from '@material-ui/icons/Mail'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import NavData from '../EventManager/drawerData'
+import NavData from '../TransportManager/drawerData'
 
 import { Link } from 'react-router-dom'
 
