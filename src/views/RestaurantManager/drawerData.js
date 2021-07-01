@@ -11,7 +11,7 @@ const NavData = [
 
     {
         name: 'Restaurants',
-        path: "/restaurantManager",
+        path: "/restaurantManager/home",
         icon: <MaterialIcons.Fastfood />,
         className: "nav-text",
          component: <Restaurants/>,

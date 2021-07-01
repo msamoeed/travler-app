@@ -64,8 +64,6 @@ function signUpHotelManager(email, password, address, name, type) {
   var url = '';
   var path = ''
 
-  alert(type);
-
   if (type == 10) {
     url = 'http://localhost:5556/tourist/reg'
     path = '/hotelManager/hotels'
@@ -73,7 +71,7 @@ function signUpHotelManager(email, password, address, name, type) {
 
   else if (type == 20) {
     url = 'http://localhost:5556/restaurantManager/reg'
-   // path = '/hotelManager/hotels'
+    path = '/restaurantManager/home'
   }
   else if (type == 30) {
     url = 'http://localhost:5556/hotelManager/reg'

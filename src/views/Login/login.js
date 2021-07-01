@@ -37,7 +37,7 @@ function signInHotelManager(email, password, type) {
     
       else if (type == 20) {
         url = 'http://localhost:5556/restaurantManager/login'
-       // path = '/hotelManager/hotels'
+        path = '/restaurantManager/home'
       }
       else if (type == 30) {
         url = 'http://localhost:5556/hotelManager/login'
@@ -51,7 +51,6 @@ function signInHotelManager(email, password, type) {
       else if (type == 50) {
         url = 'http://localhost:5556/tourManager/login'
         path = '/hotelManager/hotels'
-      path = '/hotelManager/hotels'
     }
 
     var postData = {
@@ -91,10 +90,10 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: '../../assets/img/travellogin.jpg',
-        //backgroundRepeat: 'no-repeat',
-        //backgroundColor:
-           // theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundImage: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=667&q=80',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+           theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },

@@ -22,6 +22,8 @@ import TourManagerNavData from './views/TourPackageManager/drawerData'
 import RestaurantManagerNavData from './views/RestaurantManager/drawerData'
 import TourManagerHome from './views/TourPackageManager/home'
 import RestaurantManagerHome from './views/RestaurantManager/home'
+import RestaurantDetail from './views/RestaurantManager/restaurantDetail'
+
 export const hist = createBrowserHistory();
 
 
@@ -39,6 +41,7 @@ const App = ({ match }) => {
           <Route path="/user/dashboard" component={Dashboard} />
           <Route path="/Hoteldashboard" component={HotelManagerDash} />
           <Route path="/RestaurantDashboard" component={RestaurantManagerHome} />
+          <Route path="/RestaurantDetail" component={RestaurantDetail} />
           <Route path="/hotelHome" component={Hotel} />
           {/* <Route path="/customer" component = {()=><CustomerHome component= { <Restaurants/> } /> } /> */}
 

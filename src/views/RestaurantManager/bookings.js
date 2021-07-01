@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Field } from 'react-final-form';
-import { TextField, Checkbox, Radio, Select } from 'final-form-material-ui';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -16,90 +13,12 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import {
   Typography,
-  Paper,
-  Link,
   Grid,
-
-  CssBaseline,
-  RadioGroup,
-  FormLabel,
-  MenuItem,
-  FormGroup,
-  FormControl,
-  FormControlLabel,
 } from '@material-ui/core';
-// Picker
 
-import {
-  MuiPickersUtilsProvider,
-  TimePicker,
-  DatePicker,
-} from '@material-ui/pickers';
+const axios = require('axios');
 
-function  DatePickerWrapper(props) {
-  const {
-    input: { name, onChange, value, ...restInput },
-    meta,
-    ...rest
-  } = props;
-  const showError =
-    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
 
-  return (
-    <DatePicker
-      {...rest}
-      name={name}
-      helperText={showError ? meta.error || meta.submitError : undefined}
-      error={showError}
-      inputProps={restInput}
-      onChange={onChange}
-      value={value === '' ? null : value}
-    />
-  );
-}
-
-function TimePickerWrapper(props) {
-  const {
-    input: { name, onChange, value, ...restInput },
-    meta,
-    ...rest
-  } = props;
-  const showError =
-    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
-
-  return (
-    <TimePicker
-      {...rest}
-      name={name}
-      helperText={showError ? meta.error || meta.submitError : undefined}
-      error={showError}
-      inputProps={restInput}
-      onChange={onChange}
-      value={value === '' ? null : value}
-    />
-  );
-}
-
-const onSubmit = async values => {
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  await sleep(300);
-  window.alert(JSON.stringify(values, 0, 2));
-};
-const validate = values => {
-  const errors = {};
-  if (!values.firstName) {
-    errors.firstName = 'Required';
-  }
-  if (!values.lastName) {
-    errors.lastName = 'Required';
-  }
-  if (!values.email) {
-    errors.email = 'Required';
-  }
-  return errors;
-};
 
 
 function TabPanel(props) {
@@ -155,10 +74,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function cancelBooking(id){
+  const headers = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+   
+  }
+  console.log( localStorage.getItem("uid"));
+ 
+  axios.delete("http://localhost:5556/restaurant/bookingCancel/" + id ,  headers)
 
-export default function HotelBookings() {
+  
+      .then(function (response) {
+          console.log(response.data._id);
+          if (response.status == 200) {
+                 alert("Booking Cancelled")
+                
+          }
+      })
+      .catch(function (error) {
+          alert(error)
+      });
+}
+export default function RestaurantBookings() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const [list, setList] = React.useState([]);
+
+  
+  function getList() {
+    return fetch("http://localhost:5556/restaurant/bookings/" + localStorage.getItem("uid"))
+      .then(data => data.json())
+  }
+
+  React.useEffect(() => {
+    let mounted = true;
+    getList()
+      .then(items => {
+        if(mounted) {
+          setList(items)
+        }
+      })
+    return () => mounted = false;
+  }, [])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -178,29 +137,22 @@ export default function HotelBookings() {
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
         <Grid>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-          </CardHotel>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
+        {list.map((row,index) => (
+                    
+                   <CardRestaurant restaurantID={row.restaurantId}  date={row.date }  tableNumber={row.tableId}  bookingId={row._id}/>
+                 
+                     
+                  )
+                  )}
+                  
+          
         </Grid>
 
 
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-            Available Rooms
+            Available Tables
       </TabPanel>
     
     </div>
@@ -208,17 +160,17 @@ export default function HotelBookings() {
 }
 
 
-  const   CardHotel = ({hotelName, roomNumber, date}) => {
+  const   CardRestaurant = ({restaurantId, tableNumber, date, bookingId}) => {
     const classes = useStyles();
 
         return (
     <Card className={classes.root} variant="outlined">
     <CardContent>
       <Typography className={classes.title} color="textSecondary" gutterBottom>
-        {hotelName}
+        {restaurantId}
       </Typography>
       <Typography variant="h5" component="h2">
-        Room Number {roomNumber}
+        Table ID {tableNumber}
       </Typography>
       <Typography className={classes.pos} color="textSecondary">
         {date}
@@ -231,34 +183,19 @@ export default function HotelBookings() {
      
     </CardContent>
     <CardActions>
-      <Button size="small">Cancel Booking</Button>
+      <Button size="small"    onClick={()=>{
+
+          cancelBooking(bookingId)
+
+      }}>Cancel Booking   
+        
+      
+       </Button>
     </CardActions>
   </Card>
   )
 }
 
-
-const   CardRestaurant = ({restaurantName, date}) => {
-  const classes = useStyles();
-
-      return (
-  <Card className={classes.root} variant="outlined">
-  <CardContent>
-    <Typography className={classes.title} color="textSecondary" gutterBottom>
-      {restaurantName}
-    </Typography>
-    
-    <Typography className={classes.pos} color="textSecondary">
-      {date}
-    </Typography>
-   
-  </CardContent>
-  <CardActions>
-    <Button size="small">Learn More</Button>
-  </CardActions>
-</Card>
-)
-}
 
 
 
