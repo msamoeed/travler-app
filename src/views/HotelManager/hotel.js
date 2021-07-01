@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Container, Row, Col,Modal } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -28,6 +28,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import Popup from '../../components/Popup/popup'
+import HotelList from '../Customer/hotelDetails'
 
 import {
   Typography,
@@ -36,7 +37,7 @@ import {
   Grid,
 
   CssBaseline,
- 
+
   FormLabel,
   MenuItem,
   FormGroup,
@@ -162,40 +163,40 @@ const saveBtnStyle = {
 
 
 
-function insertHotel(values){
+function insertHotel(values) {
 
   const headers = {
     'Content-Type': 'application/json',
     "Access-Control-Allow-Origin": "*",
-   
+
   }
-  console.log(values);
-  console.log( localStorage.getItem("uid"));
+
+  console.log(localStorage.getItem("uid"));
   var postData = {
-    name : values.name,
-    features : values.features,
-    address : values.address,
-    city : values.city,
-    hotelManager : localStorage.getItem("uid"),
-    images : ["https://source.unsplash.com/random",
-    "https://source.unsplash.com/random",
-    "https://source.unsplash.com/random",
-    "https://source.unsplash.com/random"
-      
+    name: values.name,
+    features: values.features,
+    address: values.address,
+    city: values.city,
+    hotelManager: localStorage.getItem("uid"),
+    images: ["https://source.unsplash.com/random",
+      "https://source.unsplash.com/random",
+      "https://source.unsplash.com/random",
+      "https://source.unsplash.com/random"
+
     ]
   }
   axios.post("http://localhost:5556/addhotel", postData, headers)
 
-  
-      .then(function (response) {
-          console.log(response.data._id);
-          if (response.status == 200) {
-                 alert("Hotel Created!")
-          }
-      })
-      .catch(function (error) {
-          alert(error)
-      });
+
+    .then(function (response) {
+      console.log(response.data._id);
+      if (response.status == 200) {
+        alert("Hotel Created!")
+      }
+    })
+    .catch(function (error) {
+      alert(error)
+    });
 }
 
 var data;
@@ -204,14 +205,15 @@ var data;
 
 export default function HotelsScreen() {
 
-  
+
 
   console.log("HELLO WORKDD");
-     
-  
+
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { onClose, selectedValue, open } = React.useState('');
+  const [openPopup, setOpenPopup] = React.useState(false)
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -220,7 +222,7 @@ export default function HotelsScreen() {
   const handleListItemClick = (value) => {
     onClose(value);
   };
- 
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -238,7 +240,7 @@ export default function HotelsScreen() {
     let mounted = true;
     getList()
       .then(items => {
-        if(mounted) {
+        if (mounted) {
           setList(items)
         }
       })
@@ -257,92 +259,105 @@ export default function HotelsScreen() {
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
 
-        <Popup >
 
-        </Popup>
-         
-        <Row>
-          <Col style={{ marginLeft: 5 }}>
-            <TableContainer component={Paper} style={TableContainerStyle}>
-              <Table
-                stickyHeader
-                style={{ width: "100%" }}
-                aria-label="customized table"
-              >
-                <TableHead>
-                  <TableRow>
-                  <TableCell style={tablestyle}>Sr. No</TableCell>
+          <Row>
+            <Col style={{ marginLeft: 5 }}>
+              <TableContainer component={Paper} style={TableContainerStyle}>
+                <Table
+                  stickyHeader
+                  style={{ width: "100%" }}
+                  aria-label="customized table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={tablestyle}>Sr. No</TableCell>
 
-                    <TableCell style={tablestyle}>Hotel ID</TableCell>
-                    <TableCell style={tablestyle} align="left">
-                      Name
-                    </TableCell>
-                    <TableCell style={tablestyle} align="left">
-                      City
-                    </TableCell>
-                    <TableCell style={tablestyle} align="left">
-                      Address
-                    </TableCell>
-                    <TableCell style={tablestyle} align="left">
-                      Manager ID
-                    </TableCell>
-                    
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {list.map((row,index) => (
-                    
-                    <StyledTableRow key={row._id}>
-                      <TableCell component="th" scope="row">
-                        {++index}
+                      <TableCell style={tablestyle}>Hotel ID</TableCell>
+                      <TableCell style={tablestyle} align="left">
+                        Name
+                      </TableCell>
+                      <TableCell style={tablestyle} align="left">
+                        City
+                      </TableCell>
+                      <TableCell style={tablestyle} align="left">
+                        Address
+                      </TableCell>
+                      <TableCell style={tablestyle} align="left">
+                        Manager ID
                       </TableCell>
 
-                      <TableCell align="left">{row._id}</TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="left">{row.city}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
 
-                      <TableCell align="left">{row.address}</TableCell>
-                      <TableCell align="left">{row.hotelManager}</TableCell>
-                      <TableCell align="left">
-                        <div>
-                          <IconButton onClick={()=>{
-                          //  viewBtn(row)
+                    {list.map((row, index) => (
+
+
+                      <StyledTableRow key={row._id}>
+                        <TableCell component="th" scope="row">
+                          {++index}
+                        </TableCell>
+
+                        <TableCell align="left">{row._id}</TableCell>
+                        <TableCell align="left">{row.name}</TableCell>
+                        <TableCell align="left">{row.city}</TableCell>
+
+                        <TableCell align="left">{row.address}</TableCell>
+                        <TableCell align="left">{row.hotelManager}</TableCell>
+                        <TableCell align="left">
+                          <div>
+                            <IconButton onClick={() => {
+                              setOpenPopup(true);
+
                             }}>
-                            <VisibilityIcon
-                              style={{ color: "#10b7cb", width: "18" }}
-                                />
-                          </IconButton>
-                          <IconButton 
-                          onClick={()=>
-                          {
-                            
-                            //deleteBtn(row)
-                          
-                          }}
-                          
-                          >
-                            <DeleteForeverIcon
-                              style={{ color: "red", width: "18" }}
-                            />
-                          </IconButton>
-                          <IconButton 
-                         // onClick={()=>{editBtn(row)}}
-                          
-                          >
-                            <EditIcon style={{ color: "green", width: "18" }}
-                            
-                             />
-                          </IconButton>
-                        </div>
-                      </TableCell>
-                    </StyledTableRow>
-                  )
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Col>
-        </Row>
+                              <VisibilityIcon
+                                style={{ color: "#10b7cb", width: "18" }}
+                              />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+
+                                //deleteBtn(row)
+
+                              }}
+
+                            >
+                              <DeleteForeverIcon
+                                style={{ color: "red", width: "18" }}
+                              />
+                            </IconButton>
+                            <IconButton
+                            // onClick={()=>{editBtn(row)}}
+
+                            >
+                              <EditIcon style={{ color: "green", width: "18" }}
+
+                              />
+                            </IconButton>
+
+
+                            <Popup
+                              title="Select Hotel"
+                              openPopup={openPopup}
+                              setOpenPopup={setOpenPopup}
+                            >
+                              <HotelList
+
+                             hotelR = {row}
+                              />
+                            </Popup>
+                          </div>
+                        </TableCell>
+                      </StyledTableRow>
+
+
+                    )
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Col>
+          </Row>
 
 
         </div>
@@ -358,7 +373,7 @@ export default function HotelsScreen() {
 
           <Form
             onSubmit={onSubmit}
-            initialValues={{  }}
+            initialValues={{}}
             validate={validate}
             render={({ handleSubmit, reset, submitting, pristine, values }) => (
               <form onSubmit={handleSubmit} noValidate>
@@ -421,7 +436,7 @@ export default function HotelsScreen() {
                             label="Restaurant"
                             control={
                               <Field
-                              name="features"
+                                name="features"
                                 component={Checkbox}
                                 type="checkbox"
                                 value="Restaurant"
@@ -432,7 +447,7 @@ export default function HotelsScreen() {
                             label="Swimming Pool"
                             control={
                               <Field
-                              name="features"
+                                name="features"
                                 component={Checkbox}
                                 type="checkbox"
                                 value="Swimming Pool"
@@ -443,7 +458,7 @@ export default function HotelsScreen() {
                             label="Mall"
                             control={
                               <Field
-                              name="features"
+                                name="features"
                                 component={Checkbox}
                                 type="checkbox"
                                 value="Mall"
@@ -484,8 +499,8 @@ export default function HotelsScreen() {
                         variant="contained"
                         color="primary"
                         type="submit"
-                        onClick={()=>{
-                         insertHotel(values)
+                        onClick={() => {
+                          insertHotel(values)
                         }}
                         disabled={submitting}
                       >

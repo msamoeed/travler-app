@@ -218,10 +218,10 @@ const useStyles = makeStyles((theme) => ({
     featureDiv: {
         borderRadius: 15,
         height: 35,
-        width: 150,
+        width: 180,
         backgroundColor: 'red',
         color: 'white',
-        paddingLeft: 150,
+        
         marginTop: 15,
         fontSize : 18,
 
@@ -256,8 +256,8 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth,
     },
     content: {
-        flexGrow:10,
-        padding: theme.spacing(6),
+        
+        padding: theme.spacing(25),
     },
 }));
 
@@ -267,21 +267,41 @@ const classes = useStyles;
 const mystyle = {
     color: "black",
     textAlign: 'center',
-    paddingTop: 15
+    paddingTop: 5
 }
 
 
-let slidesImage = [];
+
+
+
+
+const HotelDetails = ({hotelR}) => {
+    let slidesImage = [];
+
+    const [list, setList] = React.useState([]);
+
+  function getList() {
+    return fetch("http://localhost:5556/hotelroomsByHotelId/" + hotelR._id)
+      .then(data => data.json())
+  }
+
+  React.useEffect(() => {
+    let mounted = true;
+    getList()
+      .then(items => {
+        if(mounted) {
+          setList(items)
+        }
+      })
+    return () => mounted = false;
+  }, [])
+
 
 hotelR.images.map((item, index) => {
     slidesImage.push(
         <img src={item} alt="1" />
     )
 })
-
-
-
-const HotelDetails = () => {
     const classes = useStyles();
     return (
         <div className={classes.content}>
@@ -292,10 +312,10 @@ const HotelDetails = () => {
                 > {hotelR.name} </h1>
             </div>
 
-            <div>
+        
                 <Carousel slides={slidesImage} autoplay={true} interval={2000} />
 
-            </div>
+            
 
             <div style={mystyle}>
                 {hotelR.address}
@@ -309,7 +329,7 @@ const HotelDetails = () => {
                 <Grid style={mystyle} >
                     {
 
-                        hotelR.facilities.map((text, index) => (
+                        hotelR.features.map((text, index) => (
                             <div className={classes.featureDiv}>
                                 {text}
                             </div>
@@ -327,8 +347,9 @@ const HotelDetails = () => {
                 </h2>
 
                 {
-                    hotelR.rooms.map((text, index) => (
-                        <MediaCard images={text.images} description={text.description} price={text.price} detail={text.type} > </MediaCard>
+                    list.map((text, index) => (
+                        
+                        <MediaCard images={text.images[0]} description={text.description} price={text.price} detail={text.type} > </MediaCard>
                     ))}
 
             </div>
