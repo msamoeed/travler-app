@@ -16,6 +16,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 
 import IconButton from '@material-ui/core/IconButton'
+import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import PropTypes from 'prop-types'
 
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles'
@@ -25,7 +26,6 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import EditIcon from '@material-ui/icons/Edit'
 import VisibilityIcon from '@material-ui/icons/Add'
-import Popup from '../../components/Popup/popup'
 
 import {
   Typography,
@@ -68,7 +68,7 @@ const saveBtnStyle = {
   textTransform: 'none'
 }
 
-export default function AddTableScreen ({ restID }) {
+export default function EditEventScreen ({ eventID, name, address, city }) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
   const [list, setList] = React.useState([])
@@ -89,30 +89,29 @@ export default function AddTableScreen ({ restID }) {
     window.alert(JSON.stringify(values, 0, 2))
   }
 
-  function insertTable (values, restID) {
+  function editEvent (values, eventID) {
     const headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
     }
     console.log(values)
     console.log(localStorage.getItem('uid'))
-    console.log(localStorage.getItem('restaurantId'))
-    var postData = {
-      Number: values.Number,
-      description: values.Description,
-      price: values.Price,
-      status: 'Available',
-      seats: values.Seats,
-      restaurant: restID,
-      restaurantManager: localStorage.getItem('uid')
+    var putData = {
+      name: values.name,
+      address: values.address,
+      city: values.city,
+      eventManager: localStorage.getItem('uid'),
+      images: [
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'
+      ]
     }
     axios
-      .post('http://localhost:5556/addTable', postData, headers)
+      .put('http://localhost:5556/editEvent/' + eventID, putData, headers)
 
       .then(function (response) {
         console.log(response.data._id)
         if (response.status == 200) {
-          alert('Table Added!')
+          alert('Table Edited!')
         }
       })
       .catch(function (error) {
@@ -124,7 +123,7 @@ export default function AddTableScreen ({ restID }) {
     <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
       <CssBaseline />
       <Typography variant='h4' align='center' component='h1' gutterBottom>
-        Add Table
+        Edit Event
       </Typography>
 
       <Form
@@ -139,70 +138,74 @@ export default function AddTableScreen ({ restID }) {
                   <Field
                     fullWidth
                     required
-                    name='Description'
+                    name='name'
                     component={TextField}
                     type='text'
-                    label='Description'
+                    label={name}
                   />
                 </Grid>
 
                 <Grid item xs={12}>
                   <Field
-                    name='Number'
+                    name='address'
                     fullWidth
                     required
                     component={TextField}
-                    type='email'
-                    label='Number'
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Field
-                    name='Status'
-                    fullWidth
-                    required
-                    component={TextField}
-                    type='email'
-                    label='Status'
+                    type='text'
+                    label={address}
                   />
                 </Grid>
 
                 <Grid item xs={12}>
                   <Field
                     fullWidth
-                    name='Seats'
+                    name='city'
                     component={Select}
-                    label='Seats'
+                    label={city}
                     formControlProps={{ fullWidth: true }}
                   >
-                    <MenuItem value='4'>4</MenuItem>
-                    <MenuItem value='6'>6</MenuItem>
-                    <MenuItem value='12'>12</MenuItem>
+                    <MenuItem value='Islamabad'>Islamabad</MenuItem>
+                    <MenuItem value='Peshawar'>Peshawar</MenuItem>
+                    <MenuItem value='Karachi'>Karachi</MenuItem>
+                    <MenuItem value='Lahore'>Lahore</MenuItem>
+                    <MenuItem value='Gilgit'>Gilgit</MenuItem>
                   </Field>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <Field
-                    name='Price'
-                    fullWidth
-                    required
-                    component={TextField}
-                    type='email'
-                    label='Price'
+                <div>
+                  <input
+                    accept='image/*'
+                    className={classes.input}
+                    id='icon-button-photo'
+                    //    onChange={this.handleCapture}
+                    type='file'
                   />
-                </Grid>
+                  <label htmlFor='icon-button-photo'>
+                    <IconButton color='primary' component='span'>
+                      <PhotoCamera />
+                    </IconButton>
+                  </label>
+                </div>
 
+                <Grid item style={{ marginTop: 16 }}>
+                  <Button
+                    type='button'
+                    variant='contained'
+                    onClick={reset}
+                    disabled={submitting || pristine}
+                  >
+                    Reset
+                  </Button>
+                </Grid>
                 <Grid item style={{ marginTop: 16 }}>
                   <Button
                     variant='contained'
                     color='primary'
                     type='submit'
-                    disabled={submitting}
                     onClick={() => {
-                      insertTable(values, restID)
-                      setOpenPopup(true)
+                      editEvent(values, eventID)
                     }}
+                    disabled={submitting}
                   >
                     Submit
                   </Button>

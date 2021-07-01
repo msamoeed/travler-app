@@ -24,6 +24,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import EditIcon from '@material-ui/icons/Edit'
 import VisibilityIcon from '@material-ui/icons/Visibility'
+import Popup from '../../components/Popup/popup'
+import EditTransportPopup from './transportEdit'
 
 import {
   Typography,
@@ -150,7 +152,7 @@ const saveBtnStyle = {
   textTransform: 'none'
 }
 
-function deleteRestaurant (id) {
+function deleteEvent (id) {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
@@ -158,12 +160,12 @@ function deleteRestaurant (id) {
   console.log(localStorage.getItem('uid'))
 
   axios
-    .delete('http://localhost:5556/restaurants/deleteRestaurant/' + id, headers)
+    .delete('http://localhost:5556/events/deleteEvent/' + id, headers)
 
     .then(function (response) {
       console.log(response.data._id)
       if (response.status == 200) {
-        alert('Restaurant Deleted!')
+        alert('Event Deleted!')
       }
     })
     .catch(function (error) {
@@ -171,7 +173,7 @@ function deleteRestaurant (id) {
     })
 }
 
-function insertRestaurant (values) {
+function insertEvent (values) {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
@@ -182,18 +184,18 @@ function insertRestaurant (values) {
     name: values.name,
     address: values.address,
     city: values.city,
-    restaurantManager: localStorage.getItem('uid'),
+    eventManager: localStorage.getItem('uid'),
     images: [
       'https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'
     ]
   }
   axios
-    .post('http://localhost:5556/addrestaurant', postData, headers)
+    .post('http://localhost:5556/addevent', postData, headers)
 
     .then(function (response) {
       console.log(response.data._id)
       if (response.status == 200) {
-        alert('Restaurant Added!')
+        alert('Event Added!')
       }
     })
     .catch(function (error) {
@@ -201,12 +203,11 @@ function insertRestaurant (values) {
     })
 }
 
-var data
-
-export default function HotelsScreen () {
+export default function EventsScreen () {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
   const [list, setList] = React.useState([])
+  const [openPopup, setOpenPopup] = React.useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -215,7 +216,7 @@ export default function HotelsScreen () {
 
   function getList () {
     return fetch(
-      'http://localhost:5556/getrestaurantByManagerId/' +
+      'http://localhost:5556/geteventsByManagerId/' +
         localStorage.getItem('uid')
     ).then(data => data.json())
   }
@@ -238,10 +239,11 @@ export default function HotelsScreen () {
           onChange={handleChange}
           aria-label='simple tabs example'
         >
-          <Tab label='Restaurants' {...a11yProps(0)} />
-          <Tab label='Add Restaurant' {...a11yProps(1)} />
+          <Tab label='Events' {...a11yProps(0)} />
+          <Tab label='Add Event' {...a11yProps(1)} />
         </Tabs>
       </AppBar>
+
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
           <Row>
@@ -256,7 +258,7 @@ export default function HotelsScreen () {
                     <TableRow>
                       <TableCell style={tablestyle}>Sr. No</TableCell>
 
-                      <TableCell style={tablestyle}>Restaurant ID</TableCell>
+                      <TableCell style={tablestyle}>Event ID</TableCell>
                       <TableCell style={tablestyle} align='left'>
                         Name
                       </TableCell>
@@ -286,17 +288,18 @@ export default function HotelsScreen () {
                         <TableCell align='left'>{row.city}</TableCell>
 
                         <TableCell align='left'>{row.address}</TableCell>
-                        <TableCell align='left'>
-                          {row.restaurantManager}
-                        </TableCell>
+                        <TableCell align='left'>{row.eventManager}</TableCell>
                         <TableCell align='left'>
                           <div>
                             <IconButton
-                              href='/restaurantManager/restaurantDetails'
+                              href='/eventManager/eventDetail'
                               onClick={() => {
-                                localStorage.setItem('restID', row._id)
-                                localStorage.setItem('restName', row.name)
-                                localStorage.setItem('restAddress', row.address)
+                                localStorage.setItem('eventID', row._id)
+                                localStorage.setItem('eventName', row.name)
+                                localStorage.setItem(
+                                  'eventAddress',
+                                  row.address
+                                )
                               }}
                             >
                               <VisibilityIcon
@@ -305,7 +308,7 @@ export default function HotelsScreen () {
                             </IconButton>
                             <IconButton
                               onClick={() => {
-                                deleteRestaurant(row._id)
+                                deleteEvent(row._id)
                               }}
                             >
                               <DeleteForeverIcon
@@ -314,13 +317,25 @@ export default function HotelsScreen () {
                             </IconButton>
                             <IconButton
                               onClick={() => {
-                                window.open('/restaurantDetail.js')
+                                setOpenPopup(true)
                               }}
                             >
                               <EditIcon
                                 style={{ color: 'green', width: '18' }}
                               />
                             </IconButton>
+                            <Popup
+                              title='Edit Event'
+                              openPopup={openPopup}
+                              setOpenPopup={setOpenPopup}
+                            >
+                              <EditEventPopup
+                                eventID={row._id}
+                                name={row.name}
+                                address={row.address}
+                                city={row.city}
+                              />
+                            </Popup>
                           </div>
                         </TableCell>
                       </StyledTableRow>
@@ -336,7 +351,7 @@ export default function HotelsScreen () {
         <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
           <CssBaseline />
           <Typography variant='h4' align='center' component='h1' gutterBottom>
-            Add Restaurant
+            Add Event
           </Typography>
 
           <Form
@@ -354,7 +369,7 @@ export default function HotelsScreen () {
                         name='name'
                         component={TextField}
                         type='text'
-                        label='Restaurant Name'
+                        label='Event Name'
                       />
                     </Grid>
 
@@ -416,7 +431,7 @@ export default function HotelsScreen () {
                         color='primary'
                         type='submit'
                         onClick={() => {
-                          insertRestaurant(values)
+                          insertEvent(values)
                         }}
                         disabled={submitting}
                       >

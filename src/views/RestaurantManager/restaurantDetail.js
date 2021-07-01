@@ -32,6 +32,27 @@ const hotelR = {
     'https://images.unsplash.com/photo-1551632436-cbf8dd35adfa'
   ]
 }
+const axios = require('axios')
+function deleteTable (id) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  }
+  //console.log(localStorage.getItem('uid'))
+
+  axios
+    .delete('http://localhost:5556/deleteTable/' + id, headers)
+
+    .then(function (response) {
+      console.log(response.data._id)
+      if (response.status == 200) {
+        alert('Table Deleted!')
+      }
+    })
+    .catch(function (error) {
+      alert(error)
+    })
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -145,22 +166,38 @@ hotelR.images.map((item, index) => {
   slidesImage.push(<img src={item} alt='1' />)
 })
 
-const RestaurantDetails = ({ restD }) => {
+const RestaurantDetails = ({ restD, restName, restAddress }) => {
   const classes = useStyles()
   const [list, setList] = React.useState([])
   const [openPopup, setOpenPopup] = React.useState(false)
 
+  function getList () {
+    return fetch('http://localhost:5556/getTables/' + restD).then(data =>
+      data.json()
+    )
+  }
+
+  React.useEffect(() => {
+    let mounted = true
+    getList().then(items => {
+      if (mounted) {
+        setList(items)
+      }
+    })
+    return () => (mounted = false)
+  }, [])
+
   return (
     <div className={classes.content}>
       <div>
-        <h1 style={mystyle}> {hotelR.name} </h1>
+        <h1 style={mystyle}> {restName} </h1>
       </div>
 
       <div>
         <Carousel slides={slidesImage} autoplay={true} interval={2000} />
       </div>
 
-      <div style={mystyle}>{hotelR.address}</div>
+      <div style={mystyle}>{restAddress}</div>
 
       <div>
         <h2 style={mystyle}>Tables</h2>
@@ -169,7 +206,6 @@ const RestaurantDetails = ({ restD }) => {
           variant='contained'
           style={{ marginLeft: 5, marginBottom: 5, backgroundColor: '#539ddb' }}
           onClick={() => {
-            // insertRoom(values)
             setOpenPopup(true)
           }}
           //disabled={submitting || pristine}
@@ -182,7 +218,7 @@ const RestaurantDetails = ({ restD }) => {
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}
         >
-          <AddTablePopup />
+          <AddTablePopup restID={restD} />
         </Popup>
 
         <Row>
@@ -214,6 +250,9 @@ const RestaurantDetails = ({ restD }) => {
                       Status
                     </TableCell>
                     <TableCell style={tablestyle} align='left'>
+                      Manager ID
+                    </TableCell>
+                    <TableCell style={tablestyle} align='left'>
                       Actions
                     </TableCell>
                   </TableRow>
@@ -224,12 +263,12 @@ const RestaurantDetails = ({ restD }) => {
                       <TableCell component='th' scope='row'>
                         {++index}
                       </TableCell>
-
+                      <TableCell align='left'>{row.restaurant}</TableCell>
                       <TableCell align='left'>{row._id}</TableCell>
-                      <TableCell align='left'>{row.name}</TableCell>
-                      <TableCell align='left'>{row.city}</TableCell>
-
-                      <TableCell align='left'>{row.address}</TableCell>
+                      <TableCell align='left'>{row.Number}</TableCell>
+                      <TableCell align='left'>{row.seats}</TableCell>
+                      <TableCell align='left'>{row.price}</TableCell>
+                      <TableCell align='left'>{row.status}</TableCell>
                       <TableCell align='left'>
                         {row.restaurantManager}
                       </TableCell>
@@ -246,7 +285,7 @@ const RestaurantDetails = ({ restD }) => {
                           </IconButton>
                           <IconButton
                             onClick={() => {
-                              //deleteRestaurant(row._id)
+                              deleteTable(row._id)
                             }}
                           >
                             <DeleteForeverIcon

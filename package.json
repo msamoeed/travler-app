@@ -25,6 +25,7 @@
     "react-chartjs-2": "^3.0.3",
     "react-dom": "16.13.1",
     "react-dropdown": "^1.9.2",
+    "react-edit-text": "^4.0.3",
     "react-final-form": "^6.5.3",
     "react-google-maps": "9.4.5",
     "react-icons": "^4.2.0",

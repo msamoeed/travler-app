@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MailIcon from '@material-ui/icons/Mail'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import NavData from '../HotelManager/drawerData'
+import NavData from '../EventManager/drawerData'
 
 import { Link } from 'react-router-dom'
 
@@ -88,9 +88,7 @@ export default function DrawerSide (props) {
               to={text.path}
             >
               <ListItem>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                <ListItemIcon>{text.icon}</ListItemIcon>
                 <ListItemText primary={text.name} />
               </ListItem>
             </Link>
