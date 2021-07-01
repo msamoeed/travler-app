@@ -291,15 +291,23 @@ export default function HotelsScreen () {
                         </TableCell>
                         <TableCell align='left'>
                           <div>
-                            <IconButton
+                          
+                            <IconButton href='/restaurantManager/restaurantDetails'
                               onClick={() => {
                                 //add component hhere
                                 localStorage.setItem('restaurantId', row._id)
+
                               }}
                             >
+                              
+                            
                               <VisibilityIcon
                                 style={{ color: '#10b7cb', width: '18' }}
+
+                                
                               />
+                           
+                  
                             </IconButton>
                             <IconButton
                               onClick={() => {

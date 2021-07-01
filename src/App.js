@@ -102,6 +102,8 @@ const App = ({ match }) => {
             );
           })}
 
+<Route path="/restaurantManager/restaurantDetails" component={()=>  <RestaurantManagerHome component={<RestaurantDetail  restD={ localStorage.getItem('restaurantId')
+}/>}  /> } />
 
 
         </Switch>
