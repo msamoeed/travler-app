@@ -14,8 +14,18 @@ import Tab from '@material-ui/core/Tab';
 import Hotel from '../TourPackageManager/hotels'
 import Restaurants from '../TourPackageManager/restaurants'
 import Bookings from './bookings'
+import Packages from './packages'
 const NavData = [
 
+
+    {
+        name: 'Packages',
+        path: "/tourManager/packages",
+        icon: <MaterialIcons.WorkOutline />,
+        className: "nav-text",
+        component: <Packages/>,
+
+    },
     {
         name: 'Hotel',
         path: "/tourManager/hotels",

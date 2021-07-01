@@ -201,13 +201,33 @@ function insertHotel(values) {
 
 var data;
 
+function cancelBooking(id){
+  const headers = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+   
+  }
+  console.log( localStorage.getItem("uid"));
+ 
+  axios.delete("http://localhost:5556/hotel/delete/" + id ,  headers)
 
+  
+      .then(function (response) {
+          console.log(response.data._id);
+          if (response.status == 200) {
+                 alert("Hotel Removed!")
+                
+          }
+      })
+      .catch(function (error) {
+          alert(error)
+      });
+}
 
 export default function HotelsScreen() {
 
 
 
-  console.log("HELLO WORKDD");
 
 
   const classes = useStyles();
@@ -223,11 +243,11 @@ export default function HotelsScreen() {
     onClose(value);
   };
 
-
+  const bull = <span className={classes.bullet}>•</span>;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const bull = <span className={classes.bullet}>•</span>;
+
 
   const [list, setList] = React.useState([]);
 
@@ -316,11 +336,8 @@ export default function HotelsScreen() {
                             </IconButton>
                             <IconButton
                               onClick={() => {
-
-                                //deleteBtn(row)
-
+                                cancelBooking(row._id)
                               }}
-
                             >
                               <DeleteForeverIcon
                                 style={{ color: "red", width: "18" }}
@@ -329,13 +346,10 @@ export default function HotelsScreen() {
                             <IconButton
                             // onClick={()=>{editBtn(row)}}
 
-                            >
+                           >
                               <EditIcon style={{ color: "green", width: "18" }}
-
                               />
                             </IconButton>
-
-
                             <Popup
                               title="Select Hotel"
                               openPopup={openPopup}
@@ -343,14 +357,12 @@ export default function HotelsScreen() {
                             >
                               <HotelList
 
-                             hotelR = {row}
+                                hotelR={row}
                               />
                             </Popup>
                           </div>
                         </TableCell>
                       </StyledTableRow>
-
-
                     )
                     )}
                   </TableBody>

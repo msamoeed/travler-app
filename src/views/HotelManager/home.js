@@ -13,7 +13,7 @@ import DrawerSide from '../HotelManager/drawer'
 const drawerWidth = 240;
 
 
-function HotelManangerHome({  component, appbar }) {
+function HotelManangerHome({ component, appbar }) {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
     const classes = useStyles;
@@ -30,15 +30,13 @@ function HotelManangerHome({  component, appbar }) {
 
     return (
         <div className={useStyles().root}>
-            
             <DrawerSide>
             </DrawerSide>
-           {appbar}
-           
-            
+            {appbar}
+
             {component}
 
-     
+
         </div>
     );
 }

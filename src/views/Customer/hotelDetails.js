@@ -69,13 +69,17 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
 
     textAlign: 'center',
-    paddingTop: 20,
-    marginTop: 25,
+    paddingTop:10,
+  
     alignSelf: 'center'
   },
   row: {
     paddingTop: 15,
     flexDirection: 'row'
+  },
+
+  featur:{
+    display: 'flex',  justifyContent:'center', alignItems:'center',
   },
 
   appBar: {
@@ -94,6 +98,9 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth
+  },
+  carosel:{
+    width : 600
   },
   content: {
     padding: theme.spacing(25)
@@ -135,17 +142,21 @@ const HotelDetails = ({ hotelR }) => {
   })
   const classes = useStyles()
   return (
-    <div className={classes.content}>
+    <div className={classes.carosel}>
       <div>
         <h1 style={mystyle}> {hotelR.name} </h1>
       </div>
+<div className={classes.carosel}>
 
-      <Carousel slides={slidesImage} autoplay={true} interval={2000} />
+
+<Carousel slides={slidesImage} autoplay={true} interval={2000}  />
+</div>
+      
 
       <div style={mystyle}>{hotelR.address}</div>
 
       <h2 style={mystyle}>Facilities</h2>
-      <div style={mystyle}>
+      <div className={classes.featur}>
         <Grid style={mystyle}>
           {hotelR.features.map((text, index) => (
             <div className={classes.featureDiv}>{text}</div>

@@ -1,34 +1,109 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MediaCard from '../../components/TourCard/cardTour';
+import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
+import DrawerSide from './drawer'
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Popup from '../../components/Popup/popup'
+import HotelList from '../Customer/hotelDetails'
+
+
+
+
+const axios = require('axios');
 const drawerWidth = 240;
 
 
+function AddtoFav(hotelid, customer){
+  const headers = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+   
+  }
+
+  var postData = {
+      hotel :  hotelid,
+      tourist : customer
+
+
+  }
+  
+ 
+  axios.post("http://localhost:5556/tourist/addHotelFav" , postData, headers)
+
+
+  .then(function (response) {
+    console.log(response.data._id);
+    if (response.status == 200) {
+      alert("Added to Favorite!")
+    }
+  })
+  .catch(function (error) {
+    alert(error)
+  });
+}
 
 function Hotels(props) {
 
 
+  const [list, setList] = React.useState([]);
+
+  function getList() {
+    return fetch("http://localhost:5556/gethotelsForTourManager/")
+      .then(data => data.json())
+  }
+
+  React.useEffect(() => {
+    let mounted = true;
+    getList()
+      .then(items => {
+        if (mounted) {
+          setList(items)
+        }
+      })
+    return () => mounted = false;
+  }, [])
+
   return (
+    <div className={useStyles().content}>
+      <Grid container spacing={3}  >
+
+      {list.map((row,index) => (
+                    
+                    <MediaCard hotel={row} />
+                  
+                      
+                   )
+                   )}
+                   
+ 
    
-      <div className={useStyles().content}>
-
-
-        <Grid container spacing={3}  >
-
-          <MediaCard ></MediaCard>
-
-
-          <MediaCard ></MediaCard>
-          
-        </Grid>
-
-      
+      </Grid>
     </div>
   );
-
-
-  
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -41,9 +116,6 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
-
-
-
   appBar: {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -62,11 +134,78 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   content: {
-    
-    
-    paddingTop : 30
+
+
+    paddingTop: 30
   },
 }));
+
+const useStyless = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+
+
+});
+
+function MediaCard({hotel}) {
+  const classes = useStyless();
+  const [openPopup, setOpenPopup] = React.useState(false)
+
+  return (
+    <Box m={3} pt={5}>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={hotel.images[0]}
+           
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {hotel.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {hotel.address}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary" 
+          onClick={()=>{
+            setOpenPopup(true);
+
+          }}
+          >
+            View
+          </Button>
+          <Button size="small" color="primary"  
+          
+          onClick={()=>{
+            AddtoFav(hotel._id, localStorage.getItem("uid"),)
+          }}
+          >
+            Add to Favorite
+          </Button>
+        </CardActions>
+      </Card>
+      <Popup
+                              title="Hotel"
+                              openPopup={openPopup}
+                              setOpenPopup={setOpenPopup}
+                            >
+                              <HotelList
+
+                                hotelR={hotel}
+                              />
+                            </Popup>
+    </Box>
+  );
+}
+
 
 
 export default Hotels;
