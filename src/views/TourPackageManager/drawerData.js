@@ -15,6 +15,7 @@ import Hotel from '../TourPackageManager/hotels'
 import Restaurants from '../TourPackageManager/restaurants'
 import Bookings from './bookings'
 import Packages from './packages'
+import Events from './events'
 const NavData = [
 
 
@@ -57,7 +58,7 @@ const NavData = [
         path: "/tourManager/events",
         icon: <MaterialIcons.Satellite />,
         className: "nav-text",
-        component: <Bookings />,
+        component: <Events />,
     },
 
     {

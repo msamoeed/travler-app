@@ -121,6 +121,7 @@ export default function HotelBookings() {
   const [value, setValue] = React.useState(0);
 
   const [list, setList] = React.useState([]);
+  const [list2, setList2] = React.useState([]);
 
   
   function getList() {
@@ -128,6 +129,10 @@ export default function HotelBookings() {
       .then(data => data.json())
   }
 
+  function getList2() {
+    return fetch("http://localhost:5556/hotel/bookings/" + localStorage.getItem("uid"))
+      .then(data => data.json())
+  }
   React.useEffect(() => {
     let mounted = true;
     getList()

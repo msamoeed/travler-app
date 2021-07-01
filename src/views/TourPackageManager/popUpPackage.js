@@ -183,6 +183,9 @@ export default function HotelListScreen({valuesSent, type}) {
         if (type ==='hotel'){
                 url = "http://localhost:5556/tourManager/addRestaurantToPackage";
         }
+        else if (type == "event"){
+            url = 'http://localhost:5556/tourManager/addEventToPackage'
+        }
         else {
             url = "http://localhost:5556/tourManager/addHotelToPackage";
         }
