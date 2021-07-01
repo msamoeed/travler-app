@@ -293,7 +293,7 @@ export default function HotelsScreen () {
                           <div>
                             <IconButton
                               onClick={() => {
-                                window.open('/RestaurantDetail')
+                                //add component hhere
                                 localStorage.setItem('restaurantId', row._id)
                               }}
                             >

@@ -145,7 +145,7 @@ hotelR.images.map((item, index) => {
   slidesImage.push(<img src={item} alt='1' />)
 })
 
-const RestaurantDetails = () => {
+const RestaurantDetails = ({ restD }) => {
   const classes = useStyles()
   const [list, setList] = React.useState([])
   const [openPopup, setOpenPopup] = React.useState(false)
