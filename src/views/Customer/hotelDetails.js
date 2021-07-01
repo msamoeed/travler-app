@@ -33,6 +33,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
 import * as MaterialIcons from '@material-ui/icons'
+const axios = require('axios');
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -116,6 +117,37 @@ const mystyle = {
   paddingTop: 5
 }
 
+function BookRoom(roomId, hotelManager, hotelId){
+    const headers = {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+     
+    }
+  
+    var postData = {
+        hotelManager :  hotelManager,
+        hotelId : hotelId,
+        roomId : roomId,
+        customerId : localStorage.getItem("uid")
+
+  
+  
+    }
+    
+   
+    axios.post("http://localhost:5556/tourist/bookHotel" , postData, headers)
+  
+  
+    .then(function (response) {
+      console.log(response.data._id);
+      if (response.status == 200) {
+        alert("Room Booked!")
+      }
+    })
+    .catch(function (error) {
+      alert(error)
+    });
+  }
 const HotelDetails = ({ hotelR }) => {
   let slidesImage = []
 
@@ -173,6 +205,9 @@ const HotelDetails = ({ hotelR }) => {
             description={text.description}
             price={text.price}
             detail={text.type}
+            roomId = {text._id}
+            hotelManager = {hotelR.hotelManager}
+            hotelId = {hotelR._id}
           >
             {' '}
           </MediaCard>
@@ -184,7 +219,7 @@ const HotelDetails = ({ hotelR }) => {
   )
 }
 
-function MediaCard ({ images, detail, price, description }) {
+function MediaCard ({ images, detail, price, description, roomId, hotelManager, hotelId }) {
   const classes = useStyles()
 
   return (
@@ -202,7 +237,15 @@ function MediaCard ({ images, detail, price, description }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size='small' color='primary'>
+          <Button 
+          
+          size='small' 
+          color='primary'
+          onClick={()=>{
+                BookRoom(roomId, hotelManager, hotelId);
+          }}
+
+          >
             Book
           </Button>
           <Button size='small' color='primary'>
