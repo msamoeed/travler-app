@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  sideLogo: {
+    height: 150,
+    width: 180
   }
 }))
 

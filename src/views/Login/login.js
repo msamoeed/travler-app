@@ -11,12 +11,13 @@ import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import logo from '../../assets/logos/logo_transparent.png'
 
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { hist } from '../../App'
+import logo from '../../assets/logos/logo_transparent.png' // Tell webpack this JS file uses this image
+
 const axios = require('axios')
 
 function signInHotelManager (email, password, type) {
@@ -109,6 +110,10 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  sideLogo: {
+    height: 150,
+    width: 180
   }
 }))
 

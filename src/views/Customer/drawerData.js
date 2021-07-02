@@ -14,23 +14,27 @@ import Box from '@material-ui/core/Box'
 import Tab from '@material-ui/core/Tab'
 import Tours from './tours'
 import AppBars from './appbar'
+import Events from './events'
+import Hotels from "./hotels";
 
 const NavData = [
   {
     name: 'Hotels',
-    path: '/customer/hotels',
-    icon: <MaterialIcons.Hotel />,
-    className: 'nav-text',
-    component: <Hotel />,
-    appbar: <AppBars />
+    path: "/customer/hotels",
+    icon: <MaterialIcons.WorkOutline />,
+    className: "nav-text",
+    component: <Hotels/>,
+    appbar :  <AppBars/>,
   },
   {
     name: 'Events',
-    path: '/customer/HotelDetails',
-    icon: <MaterialIcons.Event />,
-    className: 'nav-text',
-    component: <HotelDetails />,
-    appbar: <AppBars />
+    path: "/customer/events",
+    icon: <MaterialIcons.WorkOutline />,
+    className: "nav-text",
+    component: <Events/>,
+    appbar :   <AppBars />
+
+
   },
   {
     name: 'Tours ',
