@@ -15,6 +15,7 @@ import Hotel from '../TourPackageManager/hotels'
 import Restaurants from '../TourPackageManager/restaurants'
 import Bookings from './bookings'
 import Packages from './packages'
+ import Transport from '../TourPackageManager/transport'
 import Events from './events'
 const NavData = [
 
@@ -49,7 +50,7 @@ const NavData = [
         path: "/tourManager/transport",
         icon: <MaterialIcons.WorkOutline />,
         className: "nav-text",
-    //    component: <Rooms />,
+        component: <Transport />,
 
     },
 
