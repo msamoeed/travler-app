@@ -88,9 +88,7 @@ export default function DrawerSide (props) {
               to={text.path}
             >
               <ListItem>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                <ListItemIcon>{text.icon}</ListItemIcon>
                 <ListItemText primary={text.name} />
               </ListItem>
             </Link>
