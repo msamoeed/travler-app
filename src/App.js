@@ -138,7 +138,7 @@ const App = ({ match }) => {
               <RestaurantManagerHome
                 component={
                   <RestaurantDetail
-                    restD={localStorage.getItem('restD')}
+                    restD={localStorage.getItem('restID')}
                     restName={localStorage.getItem('restName')}
                     restAddress={localStorage.getItem('restAddress')}
                   />

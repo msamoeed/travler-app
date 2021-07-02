@@ -292,11 +292,7 @@ const RestaurantDetails = ({ restD, restName, restAddress }) => {
                               style={{ color: 'red', width: '18' }}
                             />
                           </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              window.open('/restaurantDetail.js')
-                            }}
-                          >
+                          <IconButton>
                             <EditIcon style={{ color: 'green', width: '18' }} />
                           </IconButton>
                         </div>

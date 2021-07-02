@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import logo from '../../assets/logos/logo_transparent.png'
 
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
@@ -54,25 +55,20 @@ function signInHotelManager (email, password, type) {
   axios
     .post(url, postData, {})
     .then(function (response) {
-      
-     
       if (response.status == 200) {
         if (response.data.length == 0) {
           alert('Email or password incorrect')
         } else {
-          console.log("Hello world")
-          console.log(response.data);
-          if (response.data.token != null){
+          console.log('Hello world')
+          console.log(response.data)
+          if (response.data.token != null) {
             localStorage.setItem('uid', response.data.results[0]._id)
             localStorage.setItem('token', response.data.token)
+          } else {
+            localStorage.setItem('uid', response.data[0]._id)
           }
-          else {
-             localStorage.setItem('uid', response.data[0]._id)
-          
-          }
-          
 
-          console.log();
+          console.log()
           hist.push(path)
         }
       }
@@ -140,9 +136,8 @@ export default function SignInSide () {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img src={logo} alt='Logo' style={{ height: 200, width: 200 }} />
+
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>

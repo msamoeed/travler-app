@@ -17,6 +17,8 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Container from '@material-ui/core/Container'
 
+import logo from '../../assets/logos/logo_transparent.png'
+
 import { hist } from '../../App'
 const axios = require('axios')
 
@@ -32,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3)
   },
   submit: {
@@ -110,9 +112,7 @@ export default function SignUp () {
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <img src={logo} alt='Logo' style={{ height: 200, width: 200 }} />
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>

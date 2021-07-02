@@ -22,7 +22,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import VisibilityIcon from '@material-ui/icons/Add'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 
 import IconButton from '@material-ui/core/IconButton'
 import {
@@ -245,13 +245,9 @@ export default function RoomsScreen () {
 
                         <TableCell align='left'>
                           <div>
-                            <IconButton
-                              onClick={() => {
-                                //   insertRoom(valuesSent, row._id)
-                              }}
-                            >
-                              <VisibilityIcon
-                                style={{ color: '#10b7cb', width: '18' }}
+                            <IconButton>
+                              <DeleteForeverIcon
+                                style={{ color: 'red', width: '18' }}
                               />
                             </IconButton>
                           </div>

@@ -115,7 +115,7 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth
   },
   content: {
-    width : 600,
+    width: 600,
     padding: theme.spacing(5)
   }
 }))
@@ -199,7 +199,6 @@ const RestaurantDetails = ({ restD, restName, restAddress }) => {
       <div style={mystyle}>{restAddress}</div>
 
       <div>
-        <h2 style={mystyle}>Tables</h2>
         <Button
           type='button'
           variant='contained'
@@ -209,7 +208,7 @@ const RestaurantDetails = ({ restD, restName, restAddress }) => {
           }}
           //disabled={submitting || pristine}
         >
-           Book Table
+          Book Table
         </Button>
 
         <Popup
@@ -219,8 +218,7 @@ const RestaurantDetails = ({ restD, restName, restAddress }) => {
         >
           {/* <AddTablePopup restID={restD} /> */}
         </Popup>
-
-        </div>
+      </div>
 
       <Grid container spacing={3}></Grid>
     </div>
