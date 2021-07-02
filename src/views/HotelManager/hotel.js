@@ -396,11 +396,11 @@ export default function HotelsScreen () {
                         label='Select a City'
                         formControlProps={{ fullWidth: true }}
                       >
-                        <MenuItem value='London'>London</MenuItem>
-                        <MenuItem value='Paris'>Paris</MenuItem>
-                        <MenuItem value='Budapest'>
-                          A city with a very long Name
-                        </MenuItem>
+                        <MenuItem value='Islamabad'>Islamabad</MenuItem>
+                        <MenuItem value='Peshawar'>Peshawar</MenuItem>
+                        <MenuItem value='Karachi'>Karachi</MenuItem>
+                        <MenuItem value='Lahore'>Lahore</MenuItem>
+                        <MenuItem value='Gilgit'>Gilgit</MenuItem>
                       </Field>
                     </Grid>
 

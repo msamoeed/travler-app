@@ -141,7 +141,8 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     name='name'
                     component={TextField}
                     type='text'
-                    label={name}
+                    defaultValue={name}
+                    label='Name'
                   />
                 </Grid>
 
@@ -152,7 +153,8 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     required
                     component={TextField}
                     type='text'
-                    label={address}
+                    defaultValue={address}
+                    label='Address'
                   />
                 </Grid>
 
@@ -161,7 +163,8 @@ export default function EditEventScreen ({ eventID, name, address, city }) {
                     fullWidth
                     name='city'
                     component={Select}
-                    label={city}
+                    defaultValue={city}
+                    label='City'
                     formControlProps={{ fullWidth: true }}
                   >
                     <MenuItem value='Islamabad'>Islamabad</MenuItem>
