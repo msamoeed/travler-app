@@ -12,7 +12,9 @@ import Hotel from '../TourPackageManager/hotels'
 import Restaurants from '../TourPackageManager/restaurants'
 import Bookings from './bookings'
 import Packages from './packages'
+import Transport from '../TourPackageManager/transport'
 import Events from './events'
+import TransportDetails from '../TransportManager/transportDetail'
 const NavData = [
   {
     name: 'Packages',
@@ -40,8 +42,8 @@ const NavData = [
     name: 'Transport',
     path: '/tourManager/transport',
     icon: <MaterialIcons.Commute />,
-    className: 'nav-text'
-    //    component: <Rooms />,
+    className: 'nav-text',
+    component: <Transport />
   },
 
   {

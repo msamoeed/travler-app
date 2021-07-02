@@ -54,14 +54,23 @@ function signInHotelManager (email, password, type) {
   axios
     .post(url, postData, {})
     .then(function (response) {
-      console.log(response)
-      console.log('token:' + response.data.token)
+      
+     
       if (response.status == 200) {
         if (response.data.length == 0) {
           alert('Email or password incorrect')
         } else {
-           localStorage.setItem('uid', response.data.results[0]._id)
-           localStorage.setItem('token', response.data.token)
+          console.log("Hello world")
+          console.log(response.data);
+          if (response.data.token != null){
+            localStorage.setItem('uid', response.data.results[0]._id)
+            localStorage.setItem('token', response.data.token)
+          }
+          else {
+             localStorage.setItem('uid', response.data[0]._id)
+          
+          }
+          
 
           console.log();
           hist.push(path)
