@@ -46,22 +46,22 @@ function signUpHotelManager (email, password, address, name, type) {
 
   if (type == 10) {
     url = 'http://localhost:5556/tourist/reg'
-    path = '/customer/hotels'
+    path = '/login'
   } else if (type == 20) {
     url = 'http://localhost:5556/restaurantManager/reg'
-    path = '/restaurantManager/home'
+    path = '/login'
   } else if (type == 30) {
     url = 'http://localhost:5556/hotelManager/reg'
-    path = '/hotelManager/hotels'
+    path = '/login'
   } else if (type == 40) {
     url = 'http://localhost:5556/eventManager/reg'
-    path = '/eventManager/home'
+    path = '/login'
   } else if (type == 50) {
     url = 'http://localhost:5556/tourManager/reg'
-    path = '/tourManager/packages'
+    path = '/login'
   } else if (type == 60) {
     url = 'http://localhost:5556/transportManager/reg'
-    path = '/transportManager/home'
+    path = '/login'
   }
 
   var postData = {
