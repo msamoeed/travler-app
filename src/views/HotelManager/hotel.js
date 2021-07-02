@@ -28,7 +28,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import EditIcon from '@material-ui/icons/Edit'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import Popup from '../../components/Popup/popup'
-import HotelList from '../Customer/hotelDetails'
+import HotelList from './hotelDetails'
 
 import {
   Typography,

@@ -29,6 +29,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Popup from '../../components/Popup/popup'
 import HotelList from './popUpPackage'
+import HotelDetails from '../HotelManager/hotelDetails';
+
 
 const drawerWidth = 240;
 
@@ -38,6 +40,7 @@ function Hotels(props) {
 
 
   const [list, setList] = React.useState([]);
+
 
   function getList() {
     return fetch("http://localhost:5556/gethotelsForTourManager/")
@@ -119,6 +122,8 @@ const useStyless = makeStyles({
 function MediaCard({hotel}) {
   const classes = useStyless();
   const [openPopup, setOpenPopup] = React.useState(false)
+  const [openPopup2, setOpenPopup2] = React.useState(false)
+
 
   return (
     <Box m={3} pt={5}>
@@ -139,7 +144,12 @@ function MediaCard({hotel}) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary"
+            onClick={()=>{
+              setOpenPopup2(true)
+
+            }}
+          >
             View
           </Button>
           <Button size="small" color="primary" onClick={() => {
@@ -148,6 +158,16 @@ function MediaCard({hotel}) {
             Add to Package
           </Button>
         </CardActions>
+        <Popup
+          title="Hotel Details"
+          openPopup={openPopup2}
+          setOpenPopup={setOpenPopup2}
+        >
+        <HotelDetails
+            hotelR={hotel}
+            type="hotel"
+          />
+        </Popup>
         <Popup
           title="Select Package"
           openPopup={openPopup}
