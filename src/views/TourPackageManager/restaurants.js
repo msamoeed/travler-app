@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Popup from '../../components/Popup/popup'
 import HotelList from './popUpPackage'
-
+import RestaurantDetails from './restaurantDetails';
 const drawerWidth = 240;
 
 
@@ -99,6 +99,8 @@ const useStyless = makeStyles({
 
 function MediaCard({ restaurant }) {
   const [openPopup, setOpenPopup] = React.useState(false)
+  const [openPopup2, setOpenPopup2] = React.useState(false)
+
   const classes = useStyless();
 
   return (
@@ -120,7 +122,13 @@ function MediaCard({ restaurant }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary"
+          onClick={()=>{
+            setOpenPopup2(true)
+
+          }}
+          
+          >
             View
           </Button>
           <Button size="small" color="primary" onClick={() => {
@@ -129,6 +137,18 @@ function MediaCard({ restaurant }) {
             Add to Package
           </Button>
         </CardActions>
+        <Popup
+          title="Hotel Details"
+          openPopup={openPopup2}
+          setOpenPopup={setOpenPopup2}
+        >
+        <RestaurantDetails
+            restD={restaurant}
+            restName={restaurant.name}
+            restAddress={restaurant.address}
+            type="hotel"
+          />
+        </Popup>
         <Popup
           title="Select Package"
           openPopup={openPopup}
