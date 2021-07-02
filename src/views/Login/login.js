@@ -28,7 +28,7 @@ function signInHotelManager (email, password, type) {
 
   if (type == 10) {
     url = 'http://localhost:5556/tourist/login'
-    path = '/hotelManager/hotels'
+    path = '/customer/hotels'
   } else if (type == 20) {
     url = 'http://localhost:5556/restaurantManager/login'
     path = '/restaurantManager/home'
@@ -40,7 +40,7 @@ function signInHotelManager (email, password, type) {
     path = '/eventManager/home'
   } else if (type == 50) {
     url = 'http://localhost:5556/tourManager/login'
-    path = '/hotelManager/hotels'
+    path = '/tourManager/packages'
   } else if (type == 60) {
     url = 'http://localhost:5556/transportManager/login'
     path = '/transportManager/home'
@@ -51,11 +51,11 @@ function signInHotelManager (email, password, type) {
     password: password
   }
 
-  console.log('Asdas')
   axios
     .post(url, postData, {})
     .then(function (response) {
-      console.log(response.data._id)
+      console.log(response)
+      console.log('token:' + response.data.token)
       if (response.status == 200) {
         if (response.data.length == 0) {
           alert('Email or password incorrect')

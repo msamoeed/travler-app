@@ -46,7 +46,7 @@ function signUpHotelManager (email, password, address, name, type) {
 
   if (type == 10) {
     url = 'http://localhost:5556/tourist/reg'
-    path = '/hotelManager/hotels'
+    path = '/customer/hotels'
   } else if (type == 20) {
     url = 'http://localhost:5556/restaurantManager/reg'
     path = '/restaurantManager/home'
@@ -58,7 +58,7 @@ function signUpHotelManager (email, password, address, name, type) {
     path = '/eventManager/home'
   } else if (type == 50) {
     url = 'http://localhost:5556/tourManager/reg'
-    path = '/hotelManager/hotels'
+    path = '/tourManager/packages'
   } else if (type == 60) {
     url = 'http://localhost:5556/transportManager/reg'
     path = '/transportManager/home'
@@ -232,7 +232,7 @@ export default function SignUp () {
           </Button>
           <Grid container justify='flex-end'>
             <Grid item>
-              <Link href='#' variant='body2'>
+              <Link href='/login' variant='body2'>
                 Already have an account? Sign in
               </Link>
             </Grid>
