@@ -60,7 +60,10 @@ function signInHotelManager (email, password, type) {
         if (response.data.length == 0) {
           alert('Email or password incorrect')
         } else {
-          localStorage.setItem('uid', response.data[0]._id)
+           localStorage.setItem('uid', response.data.results[0]._id)
+           localStorage.setItem('token', response.data.token)
+
+          console.log();
           hist.push(path)
         }
       }
