@@ -16,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Container from '@material-ui/core/Container'
+import logo from '../../assets/logos/logo_transparent.png' // Tell webpack this JS file uses this image
 
 import { hist } from '../../App'
 const axios = require('axios')
@@ -37,7 +38,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
-  }
+  },
+  sideLogo: {
+    height: 150,
+    width: 180
+  },
 }))
 
 function signUpHotelManager (email, password, address, name, type) {
@@ -110,9 +115,11 @@ export default function SignUp () {
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
+        </Avatar> */}
+        <img src={logo} alt='Logo' className={useStyles().sideLogo} />
+
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>

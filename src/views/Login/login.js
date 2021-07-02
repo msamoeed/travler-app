@@ -16,6 +16,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { hist } from '../../App'
+import logo from '../../assets/logos/logo_transparent.png' // Tell webpack this JS file uses this image
+
 const axios = require('axios')
 
 function signInHotelManager (email, password, type) {
@@ -113,7 +115,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
-  }
+  },
+  sideLogo: {
+    height: 150,
+    width: 180
+  },
 }))
 
 export default function SignInSide () {
@@ -140,9 +146,11 @@ export default function SignInSide () {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          {/* <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
-          </Avatar>
+          </Avatar> */}
+                <img src={logo} alt='Logo' className={useStyles().sideLogo} />
+
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
