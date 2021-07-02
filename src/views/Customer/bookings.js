@@ -1,19 +1,45 @@
-
-
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import ReactDOM from 'react-dom';
+import { Form, Field } from 'react-final-form';
+import { TextField, Checkbox, Radio, Select } from 'final-form-material-ui';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+import {
+  Typography,
+  Paper,
+  Link,
+  Grid,
+
+  CssBaseline,
+  RadioGroup,
+  FormLabel,
+  MenuItem,
+  FormGroup,
+  FormControl,
+  FormControlLabel,
+} from '@material-ui/core';
+// Picker
+
+import {
+  MuiPickersUtilsProvider,
+  TimePicker,
+  DatePicker,
+} from '@material-ui/pickers';
+import { hist } from '../../App'
+const axios = require('axios');
+
+
+
 
 function TabPanel(props) {
   
@@ -68,10 +94,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function cancelBooking(id){
+  const headers = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+   
+  }
+  console.log( localStorage.getItem("uid"));
+ 
+  axios.delete("http://localhost:5556/hotel/bookingCancel/" + id ,  headers)
 
-export default function SimpleTabs() {
+  
+      .then(function (response) {
+          console.log(response.data._id);
+          if (response.status == 200) {
+                 alert("Booking Cancelled")
+                
+          }
+      })
+      .catch(function (error) {
+          alert(error)
+      });
+}
+export default function HotelBookings() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const [list, setList] = React.useState([]);
+  const [list2, setList2] = React.useState([]);
+
+  
+  function getList() {
+    return fetch("http://localhost:5556/hotel/Customerbookings/" + localStorage.getItem("uid"))
+      .then(data => data.json())
+  }
+
+ 
+  React.useEffect(() => {
+    let mounted = true;
+    getList()
+      .then(items => {
+        if(mounted) {
+          setList(items)
+        }
+      })
+    return () => mounted = false;
+  }, [])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -83,60 +151,36 @@ export default function SimpleTabs() {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Hotels" {...a11yProps(0)} />
-          <Tab label="Restaurants" {...a11yProps(1)} />
-          <Tab label="Packages" {...a11yProps(2)} />
-          <Tab label="Transport" {...a11yProps(3)} />
+          <Tab label="Booked" {...a11yProps(0)} />
+          
+    
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <div className={classes.root}>
         <Grid>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-          </CardHotel>
-          <CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
-<CardHotel hotelName={"Sarena Hotel"} roomNumber={"506"} date={"25 December 2021"} >
-
-
-</CardHotel>
+        {list.map((row,index) => (
+                    
+                   <CardHotel hotelName={row._id}  date={row.date }  roomNumber={row.roomId}  bookingId={row._id}/>
+                 
+                     
+                  )
+                  )}
+                  
+          
         </Grid>
 
 
         </div>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-       <Grid>
-          <CardRestaurant restaurantName={"Salt and Pepper"} date={"13 December 2021"} />
-          <CardRestaurant restaurantName={"Salt and Pepper"} date={"13 December 2021"} />
-          <CardRestaurant restaurantName={"Salt and Pepper"} date={"13 December 2021"} />
-          <CardRestaurant restaurantName={"Salt and Pepper"} date={"13 December 2021"} />
-
-
-
-         
-       </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Three
-      </TabPanel>
+      
+    
     </div>
   );
 }
 
 
-  const   CardHotel = ({hotelName, roomNumber, date}) => {
+  const   CardHotel = ({hotelName, roomNumber, date, bookingId}) => {
     const classes = useStyles();
 
         return (
@@ -146,15 +190,25 @@ export default function SimpleTabs() {
         {hotelName}
       </Typography>
       <Typography variant="h5" component="h2">
-        Room Number {roomNumber}
+        Room ID {roomNumber}
       </Typography>
       <Typography className={classes.pos} color="textSecondary">
         {date}
       </Typography >
+
+  
+     
      
     </CardContent>
     <CardActions>
-      <Button size="small">Learn More</Button>
+      <Button size="small"    onClick={()=>{
+
+          cancelBooking(bookingId)
+
+      }}>Cancel Booking   
+        
+      
+       </Button>
     </CardActions>
   </Card>
   )
@@ -182,6 +236,10 @@ const   CardRestaurant = ({restaurantName, date}) => {
 </Card>
 )
 }
+
+
+
+
 
 
 

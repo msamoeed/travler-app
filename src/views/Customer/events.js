@@ -28,7 +28,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Popup from '../../components/Popup/popup'
-import HotelList from './popUpPackage'
+// import HotelList from './popUpPackage'
 
 const drawerWidth = 240;
 
@@ -151,7 +151,7 @@ function MediaCard({hotel}) {
             Book
           </Button>
         </CardActions>
-        <Popup
+        {/* <Popup
           title="Select Event"
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}
@@ -160,7 +160,7 @@ function MediaCard({hotel}) {
             valuesSent={hotel}
             type="event"
           />
-        </Popup>
+        </Popup> */}
       </Card>
     </Box>
   );
